@@ -1,0 +1,79 @@
+version: '3'
+services:
+
+  #PHP & APACHE
+  user_management_service:
+    image: user_management_service
+    build:
+      context: ./service/user
+      dockerfile: Dockerfile
+    container_name: user_management_service
+    depends_on:
+      - mysql
+    volumes:
+      - ./service/user/:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - micro_network
+
+  #MySQL Service
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - vol_mysql_data:/var/lib/mysql/
+    networks:
+      - micro_network
+
+  mongose_services:
+    container_name: mongose_service
+    image: mongo:latest
+    networks:
+      micro_network:
+    env_file:
+      - .env
+    volumes:
+      - mongodb_service:/data/db
+      - mongodb_service_config:/data/configdb
+    ports:
+      - 27017:27017
+
+  # Nodejs
+  todo_service:
+    image: todo_service
+    container_name: nodejs_todo
+    build:
+      context: ./service/todo
+      dockerfile: Dockerfile
+    networks:
+      micro_network:
+    restart: always
+    volumes:
+      - ./service/todo:/apps
+      - /apps/node_modules
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongose_services
+
+#Docker Networks
+networks:
+  micro_network:
+    driver: bridge
+
+#Volumes
+volumes:
+  vol_mysql_data:
+    driver: local
+  mongodb_service:
+    driver: local
+  mongodb_service_config:
+    driver: local
+  vendor_data:
+    driver: local
