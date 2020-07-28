@@ -17,7 +17,7 @@ const errorHandler = (error, req, res, next) => {
   })
 }
 
-const successResponse = (req, res, data) => {
+const getResponse = (req, res, data) => {
   return res.status(200).json({
     code: 200,
     message: 'Get data successfull',
@@ -35,37 +35,10 @@ const successResponse = (req, res, data) => {
   })
 }
 
-const createResponse = (res, data) => {
+const successResponse = (res, msg, data) => {
   return res.status(200).json({
     code: 200,
-    message: 'Create data successfull',
-    status: 'success',
-    data: data
-  })
-}
-
-const getResponse = (res, data) => {
-  return res.status(200).json({
-    code: 200,
-    message: 'Get detail data successfull',
-    status: 'success',
-    data: data
-  })
-}
-
-const updateResponse = (res, data) => {
-  return res.status(200).json({
-    code: 200,
-    message: 'Update data successfull',
-    status: 'success',
-    data: data
-  })
-}
-
-const deleteResponse = (res, data) => {
-  return res.status(200).json({
-    code: 200,
-    message: 'Delete data successfull',
+    message: `${msg} data successfull`,
     status: 'success',
     data: data
   })
@@ -100,10 +73,7 @@ module.exports = {
   notFoundHandler,
   errorHandler,
   successResponse,
-  createResponse,
   getResponse,
-  updateResponse,
-  deleteResponse,
   notFoundResponse,
   errorResponse,
   customResponse

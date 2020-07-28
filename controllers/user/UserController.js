@@ -18,7 +18,7 @@ const index = async (req, res) => {
       count: count,
       limit: paginate.limit
     }
-    msg.successResponse(req, res, dataMapping)
+    msg.getResponse(req, res, dataMapping)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
@@ -27,7 +27,7 @@ const index = async (req, res) => {
 const store = async (res, input) => {
   try {
     const result = await Users.create(input)
-    msg.createResponse(res, result)
+    msg.successResponse(res, 'Create', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
@@ -36,7 +36,7 @@ const store = async (res, input) => {
 const show = async (req, res) => {
   try {
     const result = await Users.findById(req.params.id)
-    msg.getResponse(res, result)
+    msg.successResponse(res, 'Get', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
@@ -46,7 +46,7 @@ const update = async (req, res) => {
   try {
     const result = await Users.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
-    msg.updateResponse(res, result)
+    msg.successResponse(res, 'Update', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
@@ -55,7 +55,7 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const result = await Users.findByIdAndRemove(req.params.id)
-    msg.deleteResponse(res, result)
+    msg.successResponse(res, 'Delete', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
