@@ -1,6 +1,6 @@
 'use strict'
-const handler404 = (req, res) => {
-  const err = process.env.APP_ENV === 'development' ? new Error() : {}
+const notFoundHandler = (req, res) => {
+  const err = new Error('Not Found')
   return res.status(404).json({
     error: err.stack,
     status: 404,
@@ -8,11 +8,12 @@ const handler404 = (req, res) => {
   })
 }
 
-const handler500 = (_req, res) => {
-  const err = process.env.APP_ENV === 'development' ? new Error() : {}
-  res.status(500).json({
-    error: JSON.parse(err),
-    status: 500
+const errorHandler = (error, req, res, next) => {
+  if (!error.statusCode) error.statusCode = 500
+  return res.status(error.statusCode).json({
+    error: error,
+    status: error.statusCode,
+    msg: error.toString()
   })
 }
 
@@ -87,8 +88,8 @@ const errorResponse = (res, msg, code) => {
 }
 
 module.exports = {
-  handler404,
-  handler500,
+  notFoundHandler,
+  errorHandler,
   successResponse,
   createResponse,
   getResponse,

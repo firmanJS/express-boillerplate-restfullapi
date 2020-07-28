@@ -10,7 +10,7 @@ const store = async (req, res) => {
     const result = await Users.create(req.body)
     msg.createResponse(res, result)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    msg.errorResponse(res, error.message, 500)
   }
 }
 
