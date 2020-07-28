@@ -3,4 +3,5 @@
 .env
 .idea
 npm-debug.log
-/.nyc_ouput
+/.nyc_output
+core
