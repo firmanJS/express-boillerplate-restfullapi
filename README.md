@@ -3,21 +3,26 @@
 
 ## How To run
 
-`copy environment variable`
+#### copy environment variable
 
 ```sh
 cp .env-sample .env
 ```
 
-* run manualy
+#### run manualy
 
 ```sh
-- `npm install` install package
-- `npm run start` running app
-- `npm run test` running unit tetsing
+# install package
+npm install
+
+#  running app
+npm run start
+
+# running unit tetsing
+npm run test 
 ```
 
- * fill in the copied environment earlier
+#### fill in the copied environment earlier
 
 ```sh
 APP_PORT=2000
@@ -33,22 +38,24 @@ MONGO_INITDB_ROOT_PASSWORD= #password
 MONGO_INITDB_DATABASE= #db name
 ```
 
-* run with docker-compose
+#### run with docker-compose
 
 ```sh
 docker-compose up --build
 ```
 
-* or run with background process
+#### or run with background process
 
 ```sh
 docker-compose up --build -d
 ```
-
-* execution npm with container docker
+#### execution npm with container docker
 ```sh
-`docker-compose exec boillerplate npm install` install package
-`docker-compose exec boillerplate npm run test` running unit testing
+# install package
+docker-compose exec boillerplate npm install
+
+# running unit testing
+docker-compose exec boillerplate npm run test
 ```
 
 ## Code Style Guides
