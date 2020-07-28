@@ -23,4 +23,9 @@ router.post(`${API_PATH}/user/login`, [loginValidation], (req, res) => {
   auth.login(req.body, res)
 })
 
+// public register
+router.post(`${API_PATH}/user/register`, (req, res) => {
+  user.store(res, inputValidationUser(req))
+})
+
 module.exports = router
