@@ -17,19 +17,20 @@ const errorHandler = (error, req, res, next) => {
   })
 }
 
-const successResponse = (req, res, data, current = null, pages = null, count = null) => {
+const successResponse = (req, res, data) => {
   return res.status(200).json({
     code: 200,
     message: 'Get data successfull',
     status: 'success',
-    data: data,
+    data: data.result,
     _links: req.url,
     _meta: {
       currentPage: 1,
-      page: current,
-      totalPages: pages,
-      countPerPage: data.length,
-      countTotal: count
+      page: data.page,
+      limitPerPage: data.limit,
+      totalPages: data.countPerPage,
+      countPerPage: data.result.length,
+      countTotal: data.count
     }
   })
 }
@@ -70,6 +71,14 @@ const deleteResponse = (res, data) => {
   })
 }
 
+const customResponse = (res, code, msg, data) => {
+  return res.status(code).json({
+    code: code,
+    message: msg,
+    data: data
+  })
+}
+
 const notFoundResponse = (res) => {
   return res.status(404).json({
     code: 404,
@@ -96,5 +105,6 @@ module.exports = {
   updateResponse,
   deleteResponse,
   notFoundResponse,
-  errorResponse
+  errorResponse,
+  customResponse
 }
