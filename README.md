@@ -57,6 +57,22 @@ docker-compose exec boillerplate npm install
 # running unit testing
 docker-compose exec boillerplate npm run test
 ```
+## Project Structure
+```
+.
+├── config/           * all configuration file here
+|   ├── db.js         * configuration database
+|   └── route.js      * register all route
+├── controllers/      * all controllers file here
+├── helpers/          * all helper or middleware file here
+├── models/           * all models schema file here
+|   └── attributes    * custom your attribute if line is to long
+|   └── function      * custom function mongose schema
+├── routes/           * all file route here
+├── test/             * all test file here
+|   └── index.js      * test apps
+
+```
 
 ## Code Style Guides
 * Guideline:
