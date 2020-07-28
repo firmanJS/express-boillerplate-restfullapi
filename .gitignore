@@ -1,4 +1,6 @@
 /node_modules
+/coverage
 .env
 .idea
 npm-debug.log
+./nyc_ouput
