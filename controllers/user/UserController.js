@@ -54,8 +54,9 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const result = await Users.findByIdAndRemove(req.params.id)
-    msg.successResponse(res, 'Delete', result)
+    const id = req.params.id
+    const resultDestory = await Users.findByIdAndRemove(id)
+    msg.successResponse(res, 'Delete', resultDestory)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
