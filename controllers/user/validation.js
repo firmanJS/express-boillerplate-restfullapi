@@ -35,9 +35,7 @@ const verifyLoginPassword = (param, check) => {
     resultLogin = {
       msg: 'Authenticate success',
       code: 200,
-      data: {
-        token: token
-      }
+      data: { token: token }
     }
   }
   return resultLogin
