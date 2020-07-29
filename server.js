@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const app = express()
-const routing = require('./config/route')
+const routing = require('./routes')
 const dbConfig = require('./config/db')
 const cors = require('cors')
 const { notFoundHandler, errorHandler } = require('./helpers/exceptions')

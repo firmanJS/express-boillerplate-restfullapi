@@ -24,7 +24,7 @@ const index = async (req, res) => {
   }
 }
 
-const store = async (res, input) => {
+const store = async (input, res) => {
   try {
     const result = await Users.create(input)
     msg.successResponse(res, 'Create', result)

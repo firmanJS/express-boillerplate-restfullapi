@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.get(`${API_PATH}/user`, verifyToken, user.index)
 router.post(`${API_PATH}/user`, verifyToken, (req, res) => {
-  user.store(res, inputValidationUser(req))
+  user.store(inputValidationUser(req), res)
 })
 router.get(`${API_PATH}/user/:id`, verifyToken, user.show)
 router.put(`${API_PATH}/user/:id`, verifyToken, user.update)
@@ -23,7 +23,7 @@ router.post(`${API_PATH}/user/auth/login`, [loginValidation], (req, res) => {
   auth.login(req.body, res)
 })
 router.post(`${API_PATH}/user/auth/register`, (req, res) => {
-  user.store(res, inputValidationUser(req))
+  user.store(inputValidationUser(req), res)
 })
 router.get(`${API_PATH}/user/auth/logout`, verifyToken, auth.logout)
 

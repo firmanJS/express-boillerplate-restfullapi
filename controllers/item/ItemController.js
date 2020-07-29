@@ -1,15 +1,15 @@
 'use strict'
-const Users = require('../../models/UserModel')
+const Items = require('../../models/ItemModel')
 const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
 
 const index = async (req, res) => {
   const paginate = _paging(req)
   try {
-    const result = await Users.find(paginate.where)
+    const result = await Items.find(paginate.where)
       .skip((paginate.limit * paginate.page) - paginate.limit)
       .limit(paginate.limit).sort(paginate.sort)
-    const count = await Users.estimatedDocumentCount()
+    const count = await Items.estimatedDocumentCount()
     const countPerPage = Math.ceil(count / paginate.limit)
     const dataMapping = {
       result: result,
@@ -24,9 +24,9 @@ const index = async (req, res) => {
   }
 }
 
-const store = async (res, input) => {
+const store = async (input, res) => {
   try {
-    const result = await Users.create(input)
+    const result = await Items.create(input)
     msg.successResponse(res, 'Create', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
@@ -35,7 +35,7 @@ const store = async (res, input) => {
 
 const show = async (req, res) => {
   try {
-    const result = await Users.findById(req.params.id)
+    const result = await Items.findById(req.params.id)
     msg.successResponse(res, 'Get', result)
   } catch (error) {
     msg.errorResponse(res, error, 500)
@@ -44,7 +44,7 @@ const show = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const result = await Users.findByIdAndUpdate(req.params.id,
+    const result = await Items.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
     msg.successResponse(res, 'Update', result)
   } catch (error) {
@@ -55,7 +55,7 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const id = req.params.id
-    const resultDestory = await Users.findByIdAndRemove(id)
+    const resultDestory = await Items.findByIdAndRemove(id)
     msg.successResponse(res, 'Delete', resultDestory)
   } catch (error) {
     msg.errorResponse(res, error, 500)
