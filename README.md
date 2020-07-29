@@ -78,6 +78,10 @@ docker-compose exec boillerplate npm install
 # running unit testing
 docker-compose exec boillerplate npm run test
 ```
+
+## Documentation API 
+in file `documentation.json` export to your postman
+
 ## Project Structure
 ```
 .
