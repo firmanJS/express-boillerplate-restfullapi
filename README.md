@@ -1,6 +1,27 @@
 # Express Boillerplate RestfullApi With MongoDB
 [![Maintainability](https://api.codeclimate.com/v1/badges/fa5c8e5f0ea3bdf82fa6/maintainability)](https://codeclimate.com/github/firmanJS/express-boillerplate-restfullapi/maintainability)
 
+## Core Stack
+- **Node.js** - [http://nodejs.org/](http://nodejs.org/)
+- **Express** - [http://expressjs.com/](http://expressjs.com/)
+- **Mongo DB** - [https://www.mongodb.com/](https://www.mongodb.com/)
+- **Mongoose** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nodemon** - [https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon)
+<!-- - **chai** - [https://www.npmjs.com/package/chai](https://www.npmjs.com/package/chai)
+- **chai-http** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **compression** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **dotenv** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **express-validator** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **helmet** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **jsonwebtoken** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **method-override** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **mocha** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **moment** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **mongoose** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nodemon** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nyc** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **password-hash** - [https://mongoosejs.com/](https://mongoosejs.com/) -->
+
 ## How To run
 
 #### copy environment variable
