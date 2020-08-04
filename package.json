@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --max-old-space-size=2048 server.js",
-    "test": "nyc --reporter=html mocha --timeout 10000"
+    "test": "nyc --reporter=html mocha --timeout 10000",
+    "coverage": "nyc --reporter=text mocha --check-coverage --lines 90"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/firmanJS/express-boillerplate-restfullapi.git"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "keywords": [
     "expressjs",
     "boillerplate",

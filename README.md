@@ -1,6 +1,27 @@
 # Express Boillerplate RestfullApi With MongoDB
 [![Maintainability](https://api.codeclimate.com/v1/badges/fa5c8e5f0ea3bdf82fa6/maintainability)](https://codeclimate.com/github/firmanJS/express-boillerplate-restfullapi/maintainability)
 
+## Core Stack
+- **Node.js** - [http://nodejs.org/](http://nodejs.org/)
+- **Express** - [http://expressjs.com/](http://expressjs.com/)
+- **Mongo DB** - [https://www.mongodb.com/](https://www.mongodb.com/)
+- **Mongoose** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nodemon** - [https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon)
+<!-- - **chai** - [https://www.npmjs.com/package/chai](https://www.npmjs.com/package/chai)
+- **chai-http** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **compression** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **dotenv** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **express-validator** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **helmet** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **jsonwebtoken** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **method-override** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **mocha** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **moment** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **mongoose** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nodemon** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **nyc** - [https://mongoosejs.com/](https://mongoosejs.com/)
+- **password-hash** - [https://mongoosejs.com/](https://mongoosejs.com/) -->
+
 ## How To run
 
 #### copy environment variable
@@ -57,18 +78,22 @@ docker-compose exec boillerplate npm install
 # running unit testing
 docker-compose exec boillerplate npm run test
 ```
+
+## Documentation API 
+in file `documentation.json` export to your postman
+
 ## Project Structure
 ```
 .
 ├── config/           * all configuration file here
-|   ├── db.js         * configuration database
-|   └── route.js      * register all route
+|   └── db.js         * configuration database
 ├── controllers/      * all controllers file here
 ├── helpers/          * all helper or middleware file here
 ├── models/           * all models schema file here
 |   └── attributes    * custom your attribute if line is to long
 |   └── function      * custom function mongose schema
 ├── routes/           * all file route here
+|   └── index.js      * register all route
 ├── test/             * all test file here
 |   └── index.js      * test apps
 

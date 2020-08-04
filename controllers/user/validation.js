@@ -25,13 +25,11 @@ const verifyLoginPassword = (param, check) => {
     }
   } else {
     const userToken = {
-      id: check.id,
+      id: check._id,
       username: check.username,
       fullname: check.fullname
     }
-    const token = jwt.sign({ userToken }, process.env.SECRET_KEY, {
-      expiresIn: '3h'
-    })
+    const token = jwt.sign(userToken, process.env.SECRET_KEY, { expiresIn: '8h' })
     resultLogin = {
       msg: 'Authenticate success',
       code: 200,
