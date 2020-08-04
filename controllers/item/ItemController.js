@@ -7,6 +7,7 @@ const index = async (req, res) => {
   const paginate = _paging(req)
   try {
     const result = await Items.find(paginate.where)
+      .select('_id, name')
       .skip((paginate.limit * paginate.page) - paginate.limit)
       .limit(paginate.limit).sort(paginate.sort)
     const count = await Items.estimatedDocumentCount()

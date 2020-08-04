@@ -19,7 +19,7 @@ describe('Users', () => {
       }
       assert.typeOf(users.username, 'string')
       assert.typeOf(users.password, 'string')
-      chai.request(server).post('login')
+      chai.request(server).post('auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
         .send(users).then((res) => {
@@ -40,7 +40,7 @@ describe('Users', () => {
       }
       assert.typeOf(users.username, 'string')
       assert.typeOf(users.password, 'string')
-      chai.request(server).post('login')
+      chai.request(server).post('auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
         .send(users).then((res) => {
