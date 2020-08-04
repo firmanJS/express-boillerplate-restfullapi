@@ -11,10 +11,10 @@ router.get(`${API_PATH}/item`, verifyToken, item.index)
 router.post(`${API_PATH}/item`, [itemValidation], (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) res.status(422).json(errors)
-  item.storeItem(req.body, res)
+  item.store(req.body, res)
 })
-router.get(`${API_PATH}/item/:id`, verifyToken, item.showItem)
-router.put(`${API_PATH}/item/:id`, verifyToken, item.updateItem)
-router.delete(`${API_PATH}/item/:id`, verifyToken, item.destroyItem)
+router.get(`${API_PATH}/item/:id`, verifyToken, item.show)
+router.put(`${API_PATH}/item/:id`, verifyToken, item.update)
+router.delete(`${API_PATH}/item/:id`, verifyToken, item.destroy)
 
 module.exports = router

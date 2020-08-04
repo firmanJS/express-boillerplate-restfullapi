@@ -7,7 +7,6 @@ const index = async (req, res) => {
   const paginate = _paging(req)
   try {
     const result = await Items.find(paginate.where)
-      .select('_id, name')
       .skip((paginate.limit * paginate.page) - paginate.limit)
       .limit(paginate.limit).sort(paginate.sort)
     const count = await Items.estimatedDocumentCount()
@@ -25,44 +24,44 @@ const index = async (req, res) => {
   }
 }
 
-const storeItem = async (input, res) => {
+const store = async (input, res) => {
   try {
-    const result = await Items.create(input)
-    msg.successResponse(res, 'Create', result)
+    const storeItem = await Items.create(input)
+    msg.successResponse(res, 'Create', storeItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const showItem = async (req, res) => {
+const show = async (req, res) => {
   try {
-    const result = await Items.findById(req.params.id)
-    msg.successResponse(res, 'Get', result)
+    const showItem = await Items.findById(req.params.id)
+    msg.successResponse(res, 'Get', showItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const updateItem = async (req, res) => {
+const update = async (req, res) => {
   try {
-    const result = await Items.findByIdAndUpdate(req.params.id,
+    const updateItem = await Items.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
-    msg.successResponse(res, 'Update', result)
+    msg.successResponse(res, 'Update', updateItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const destroyItem = async (req, res) => {
+const destroy = async (req, res) => {
   try {
     const id = req.params.id
-    const resultDestory = await Items.findByIdAndRemove(id)
-    msg.successResponse(res, 'Delete', resultDestory)
+    const destroyItem = await Items.findByIdAndRemove(id)
+    msg.successResponse(res, 'Delete', destroyItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
 module.exports = {
-  index, storeItem, showItem, updateItem, destroyItem
+  index, store, show, update, destroy
 }
