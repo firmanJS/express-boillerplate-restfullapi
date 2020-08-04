@@ -25,7 +25,7 @@ const index = async (req, res) => {
   }
 }
 
-const store = async (input, res) => {
+const storeItem = async (input, res) => {
   try {
     const result = await Items.create(input)
     msg.successResponse(res, 'Create', result)
@@ -34,7 +34,7 @@ const store = async (input, res) => {
   }
 }
 
-const show = async (req, res) => {
+const showItem = async (req, res) => {
   try {
     const result = await Items.findById(req.params.id)
     msg.successResponse(res, 'Get', result)
@@ -43,7 +43,7 @@ const show = async (req, res) => {
   }
 }
 
-const update = async (req, res) => {
+const updateItem = async (req, res) => {
   try {
     const result = await Items.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
@@ -53,7 +53,7 @@ const update = async (req, res) => {
   }
 }
 
-const destroy = async (req, res) => {
+const destroyItem = async (req, res) => {
   try {
     const id = req.params.id
     const resultDestory = await Items.findByIdAndRemove(id)
@@ -64,5 +64,5 @@ const destroy = async (req, res) => {
 }
 
 module.exports = {
-  index, store, show, update, destroy
+  index, storeItem, showItem, updateItem, destroyItem
 }
