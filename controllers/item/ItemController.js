@@ -2,6 +2,7 @@
 const Items = require('../../models/ItemModel')
 const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
+const { resultValidation } = require('../../helpers/validation')
 
 const index = async (req, res) => {
   const paginate = _paging(req)
@@ -24,12 +25,17 @@ const index = async (req, res) => {
   }
 }
 
-const storeItem = async (input, res) => {
+const store = async (req, res) => {
   try {
-    const storeItem = await Items.create(input)
+    const storeItem = await Items.create(req.body)
     msg.successResponse(res, 'Create', storeItem)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    const cek = resultValidation(req)
+    if (cek === 0) {
+      msg.errorResponse(res, error, 500)
+    } else {
+      msg.errorResponse(res, cek, 500)
+    }
   }
 }
 
@@ -63,5 +69,5 @@ const destroy = async (req, res) => {
 }
 
 module.exports = {
-  index, storeItem, show, update, destroy
+  index, store, show, update, destroy
 }
