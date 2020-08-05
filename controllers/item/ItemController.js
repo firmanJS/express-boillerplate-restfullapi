@@ -24,7 +24,7 @@ const index = async (req, res) => {
   }
 }
 
-const store = async (input, res) => {
+const storeItem = async (input, res) => {
   try {
     const storeItem = await Items.create(input)
     msg.successResponse(res, 'Create', storeItem)
@@ -63,5 +63,5 @@ const destroy = async (req, res) => {
 }
 
 module.exports = {
-  index, store, show, update, destroy
+  index, storeItem, show, update, destroy
 }
