@@ -2,22 +2,23 @@
 const Items = require('../../models/ItemModel')
 const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
+const { resultValidation } = require('../../helpers/validation')
 
 const index = async (req, res) => {
-  const paginate = _paging(req)
+  const paginations = _paging(req)
   try {
-    const result = await Items.find(paginate.where)
-      .select('_id, name')
-      .skip((paginate.limit * paginate.page) - paginate.limit)
-      .limit(paginate.limit).sort(paginate.sort)
+    const result = await Items.find(paginations.where)
+      .sort(paginations.sort)
+      .limit(paginations.limit)
+      .skip((paginations.limit * paginations.page) - paginations.limit)
     const count = await Items.estimatedDocumentCount()
-    const countPerPage = Math.ceil(count / paginate.limit)
+    const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
       result: result,
-      page: paginate.page,
+      page: paginations.page,
       countPerPage: countPerPage,
       count: count,
-      limit: paginate.limit
+      limit: paginations.limit
     }
     msg.getResponse(req, res, dataMapping)
   } catch (error) {
@@ -25,39 +26,48 @@ const index = async (req, res) => {
   }
 }
 
-const store = async (input, res) => {
+const store = async (req, res) => {
   try {
-    const result = await Items.create(input)
-    msg.successResponse(res, 'Create', result)
+    const storeItem = await Items.create(req.body)
+    msg.successResponse(res, 'Create', storeItem)
+  } catch (error) {
+    const cek = resultValidation(req)
+    if (cek === 0) {
+      msg.errorResponse(res, error, 500)
+    } else {
+      msg.errorResponse(res, cek, 500)
+    }
+  }
+}
+
+const show = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const showItem = await Items.findById(id)
+    if (!showItem) return next()
+    msg.successResponse(res, 'Get', showItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const show = async (req, res) => {
+const update = async (req, res, next) => {
   try {
-    const result = await Items.findById(req.params.id)
-    msg.successResponse(res, 'Get', result)
-  } catch (error) {
-    msg.errorResponse(res, error, 500)
-  }
-}
-
-const update = async (req, res) => {
-  try {
-    const result = await Items.findByIdAndUpdate(req.params.id,
+    const updateItem = await Items.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
-    msg.successResponse(res, 'Update', result)
+    if (!updateItem) return next()
+    msg.successResponse(res, 'Update', updateItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const id = req.params.id
-    const resultDestory = await Items.findByIdAndRemove(id)
-    msg.successResponse(res, 'Delete', resultDestory)
+    const destroyItem = await Items.findByIdAndRemove(id)
+    if (!destroyItem) return next()
+    msg.successResponse(res, 'Delete', destroyItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }

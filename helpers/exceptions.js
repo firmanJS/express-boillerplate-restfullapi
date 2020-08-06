@@ -62,11 +62,21 @@ const notFoundResponse = (res) => {
 }
 
 const errorResponse = (res, msg, code) => {
-  return res.status(code).json({
-    message: `Error. ${msg}`,
-    status: 'bad request',
-    data: []
-  })
+  let message
+  if (typeof msg === 'object') {
+    message = {
+      msg,
+      status: 'bad request',
+      data: []
+    }
+  } else {
+    message = {
+      message: `Error. ${msg}`,
+      status: 'bad request',
+      data: []
+    }
+  }
+  return res.status(code).json(message)
 }
 
 module.exports = {
