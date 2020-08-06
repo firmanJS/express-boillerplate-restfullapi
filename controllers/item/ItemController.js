@@ -8,8 +8,9 @@ const index = async (req, res) => {
   const paginations = _paging(req)
   try {
     const result = await Items.find(paginations.where)
+      .sort(paginations.sort)
+      .limit(paginations.limit)
       .skip((paginations.limit * paginations.page) - paginations.limit)
-      .limit(paginations.limit).sort(paginations.sort)
     const count = await Items.estimatedDocumentCount()
     const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
