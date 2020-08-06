@@ -39,29 +39,33 @@ const store = async (req, res) => {
   }
 }
 
-const show = async (req, res) => {
+const show = async (req, res, next) => {
   try {
-    const showItem = await Items.findById(req.params.id)
+    const { id } = req.params
+    const showItem = await Items.findById(id)
+    if (!showItem) return next()
     msg.successResponse(res, 'Get', showItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const update = async (req, res) => {
+const update = async (req, res, next) => {
   try {
     const updateItem = await Items.findByIdAndUpdate(req.params.id,
       { $set: req.body }, { new: true })
+    if (!updateItem) return next()
     msg.successResponse(res, 'Update', updateItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const id = req.params.id
     const destroyItem = await Items.findByIdAndRemove(id)
+    if (!destroyItem) return next()
     msg.successResponse(res, 'Delete', destroyItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
