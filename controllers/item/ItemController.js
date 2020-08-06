@@ -5,19 +5,19 @@ const { _paging } = require('../../helpers/pagination')
 const { resultValidation } = require('../../helpers/validation')
 
 const index = async (req, res) => {
-  const paginate = _paging(req)
+  const paginations = _paging(req)
   try {
-    const result = await Items.find(paginate.where)
-      .skip((paginate.limit * paginate.page) - paginate.limit)
-      .limit(paginate.limit).sort(paginate.sort)
+    const result = await Items.find(paginations.where)
+      .skip((paginations.limit * paginations.page) - paginations.limit)
+      .limit(paginations.limit).sort(paginations.sort)
     const count = await Items.estimatedDocumentCount()
-    const countPerPage = Math.ceil(count / paginate.limit)
+    const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
       result: result,
-      page: paginate.page,
+      page: paginations.page,
       countPerPage: countPerPage,
       count: count,
-      limit: paginate.limit
+      limit: paginations.limit
     }
     msg.getResponse(req, res, dataMapping)
   } catch (error) {
