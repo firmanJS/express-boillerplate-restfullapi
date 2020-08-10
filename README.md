@@ -22,6 +22,22 @@
 - **nyc** - [https://mongoosejs.com/](https://mongoosejs.com/)
 - **password-hash** - [https://mongoosejs.com/](https://mongoosejs.com/) -->
 
+## feature
+
+1. authentication with jwt, login, logout, register, blacklist token, logout jwt
+1. verifiy route with jwt
+1. crud example
+1. error handling
+1. database use no sql mongodb mongoose
+1. testing with mocha and chai
+1. coverage use istanbull
+
+## unit testing
+<h1 align=center>
+ <img src="https://cldup.com/xFVFxOioAU.svg" alt="Mocha test framework"/>
+ <img alt="ChaiJS" width="160px" src="http://chaijs.com/img/chai-logo.png">
+</h1>
+
 ## How To run
 
 #### copy environment variable
