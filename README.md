@@ -31,6 +31,10 @@
 1. database use no sql mongodb mongoose
 1. testing with mocha and chai
 1. coverage use istanbull
+1. with docker example
+1. validiation, use express-valdator
+1. pagination example
+1. custom message api response
 
 ## unit testing
 <h1 align=center>
