@@ -9,4 +9,6 @@ RUN npm install && npm cache clean --force
 
 COPY . ./apps
 
-CMD ["npm", "run", "dev"]
+EXPOSE 2000
+
+CMD ["npm", "start"]

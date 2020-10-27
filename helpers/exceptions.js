@@ -1,8 +1,8 @@
 'use strict'
 const notFoundHandler = (req, res) => {
   const err = new Error('Not Found')
-  return res.status(404).json({
-    error: err.stack,
+  return res.status(res.statusCode).json({
+    error: err.toString(),
     status: 404,
     msg: `Route : ${req.url} Not found.`
   })

@@ -4,7 +4,8 @@
   "description": "express boilerplate restfullapi with mongodb",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --max-old-space-size=2048 server.js",
+    "prod": "pm2 server.js",
+    "dev": "nodemon --max-old-space-size=2048 server.js",
     "test": "nyc --reporter=html mocha --timeout 10000",
     "coverage": "nyc --reporter=text mocha --check-coverage --lines 90"
   },
@@ -12,7 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/firmanJS/express-boillerplate-restfullapi.git"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "expressjs",
     "boillerplate",
@@ -51,6 +54,8 @@
     "mongoose": "^5.9.25",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
-    "password-hash": "^1.2.2"
+    "password-hash": "^1.2.2",
+    "pm2": "^4.5.0",
+    "winston": "^3.3.3"
   }
 }

@@ -2,8 +2,8 @@ version: '3'
 services:
 
   mongodb_service:
+    image: mongo:4.2
     container_name: mongodb_service
-    image: mongo:latest
     networks:
       express_boillerplate_network:
     env_file:
@@ -16,7 +16,6 @@ services:
 
   # Nodejs
   boillerplate:
-    image: boillerplate
     container_name: boillerplate
     build:
       context: .
