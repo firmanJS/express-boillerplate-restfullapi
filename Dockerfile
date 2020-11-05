@@ -1,12 +1,9 @@
 FROM node:14-alpine
 
-WORKDIR /apps
+WORKDIR /usr/apps
 
-COPY package.json /apps
-COPY package-lock.json /apps
+COPY package*.json ./
 
 RUN npm install && npm cache clean --force
-
-COPY . ./apps
 
 CMD ["npm", "run", "dev"]

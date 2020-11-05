@@ -63,7 +63,13 @@ const notFoundResponse = (res) => {
 
 const errorResponse = (res, msg, code) => {
   let message
-  if (typeof msg === 'object') {
+  if(msg.errmsg){
+    message = {
+      message: msg.errmsg,
+      status: 'bad request',
+      data: []
+    }
+  } else if (typeof msg === 'object') {
     message = {
       msg,
       status: 'bad request',
