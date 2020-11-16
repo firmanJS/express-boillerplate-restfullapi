@@ -3,6 +3,7 @@ const Items = require('../../models/ItemModel')
 const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
 const { resultValidation } = require('../../helpers/validation')
+const { deletes } = require('../../utils/crud')
 
 const index = async (req, res) => {
   const paginations = _paging(req)
@@ -64,7 +65,7 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    const destroyItem = await Items.findByIdAndRemove(req.params.id)
+    const destroyItem = await deletes(Items, req.params.id)
     if (!destroyItem) return next()
     msg.successResponse(res, 'Delete', destroyItem)
   } catch (error) {
