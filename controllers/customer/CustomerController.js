@@ -63,13 +63,7 @@ const update = async (req, res, next) => {
 }
 
 const destroy = async (req, res, next) => {
-  try {
-    const destroyItem = await deletes(Customer, req.params.id)
-    if (!destroyItem) return next()
-    msg.successResponse(res, 'Delete', destroyItem)
-  } catch (error) {
-    msg.errorResponse(res, error, 500)
-  }
+  await deletes(res, Customer, req.params.id, msg, next)
 }
 
 module.exports = {
