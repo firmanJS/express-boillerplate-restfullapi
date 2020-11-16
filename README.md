@@ -127,6 +127,8 @@ in file `documentation.json` export to your postman
 |   └── index.js      * register all route
 ├── test/             * all test file here
 |   └── index.js      * test apps
+├── utils/            * all utils file here
+|   └── crud.js       * for basic crud if same 
 
 ```
 
