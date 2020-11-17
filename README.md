@@ -68,7 +68,7 @@ cp .env-sample .env
 npm install
 
 #  running app
-npm run start
+npm run dev
 
 # running unit tetsing
 npm run test 
