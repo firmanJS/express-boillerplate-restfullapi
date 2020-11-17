@@ -16,6 +16,7 @@
 - **Mongo DB** - [https://www.mongodb.com/](https://www.mongodb.com/)
 - **Mongoose** - [https://mongoosejs.com/](https://mongoosejs.com/)
 - **nodemon** - [https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon)
+- **pm2** - [https://www.npmjs.com/package/pm2](https://www.npmjs.com/package/pm2)
 <!-- - **chai** - [https://www.npmjs.com/package/chai](https://www.npmjs.com/package/chai)
 - **chai-http** - [https://mongoosejs.com/](https://mongoosejs.com/)
 - **compression** - [https://mongoosejs.com/](https://mongoosejs.com/)
@@ -126,6 +127,8 @@ in file `documentation.json` export to your postman
 |   └── index.js      * register all route
 ├── test/             * all test file here
 |   └── index.js      * test apps
+├── utils/            * all utils file here
+|   └── crud.js       * for basic crud if same 
 
 ```
 

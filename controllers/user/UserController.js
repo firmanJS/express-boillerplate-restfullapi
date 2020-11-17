@@ -2,6 +2,7 @@
 const Users = require('../../models/UserModel')
 const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
+const { deletes } = require('../../utils/crud')
 
 const index = async (req, res) => {
   const paginate = _paging(req)
@@ -52,14 +53,8 @@ const update = async (req, res) => {
   }
 }
 
-const destroy = async (req, res) => {
-  try {
-    const id = req.params.id
-    const resultDestory = await Users.findByIdAndRemove(id)
-    msg.successResponse(res, 'Delete', resultDestory)
-  } catch (error) {
-    msg.errorResponse(res, error, 500)
-  }
+const destroy = async (req, res, next) => {
+  await deletes(res, Users, req.params.id, next)
 }
 
 module.exports = {

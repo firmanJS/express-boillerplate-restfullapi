@@ -16,6 +16,7 @@ services:
 
   # Nodejs
   boillerplate:
+    image: boillerplate
     container_name: boillerplate
     build:
       context: .
@@ -24,8 +25,8 @@ services:
       express_boillerplate_network:
     restart: always
     volumes:
-      - .:/apps
-      - /apps/node_modules
+      - .:/usr/apps
+      - /usr/apps/node_modules
     ports:
       - "${APP_PORT}:${APP_PORT}"
     depends_on:
