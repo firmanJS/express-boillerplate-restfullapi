@@ -13,5 +13,6 @@ router.post(`${API_PATH}/country`, verifyToken, [countryValidation], (req, res) 
 router.get(`${API_PATH}/country/:id`, verifyToken, country.show)
 router.put(`${API_PATH}/country/:id`, verifyToken, country.update)
 router.delete(`${API_PATH}/country/:id`, verifyToken, country.destroy)
+router.delete(`${API_PATH}/country`, verifyToken, country.clean)
 
 module.exports = router

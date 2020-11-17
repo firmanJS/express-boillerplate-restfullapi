@@ -123,7 +123,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "5f1f9a88ae34200ddd072c0c"
+									"value": "5fa3ece33a28fe008d4df979"
 								}
 							]
 						}
@@ -244,7 +244,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"user123\",\n    \"price\": \"2.000\",\n    \"qty\": \"123\"\n}",
+							"raw": "{\n    \"name\":\"user12l3\",\n    \"price\": \"2.000\",\n    \"qty\": \"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -464,7 +464,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"user123\",\n    \"nip\": \"zsd\",\n    \"kantor\":[{\n        \"nama_kantor\":\"depa\"\n    }]\n}",
+							"raw": "{\n    \"name\":\"user12p3\",\n    \"nip\": \"zsd\",\n    \"kantor\":[{\n        \"nama_kantor\":\"depa\"\n    }]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -508,12 +508,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/item/:id",
+							"raw": "{{host}}/customer/:id",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"item",
+								"customer",
 								":id"
 							],
 							"variable": [
@@ -597,18 +597,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/item/:id",
+							"raw": "{{host}}/customer/:id",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"item",
+								"customer",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "5f20f50f7fd44304b31dbf28"
+									"value": "5fb26c0d6965100a057a690d"
 								}
 							]
 						}
@@ -684,7 +684,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"zimbabwe\",\n    \"code\":\"zb\"\n}",
+							"raw": "{\n    \"name\":\"zimbabwewss\",\n    \"code\":\"zbwss\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -828,7 +828,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "5fb268e27147b6079c55a533"
+									"value": "5fb26b2bd48aa008fb263bbcs"
 								}
 							]
 						}
