@@ -1,11 +1,11 @@
-'use strict'
 const express = require('express')
+const { validationResult } = require('express-validator')
 const user = require('../controllers/user/UserController')
 const auth = require('../controllers/user/AuthController')
-const { validationResult } = require('express-validator')
 const { inputValidationUser, loginValidation } = require('../controllers/user/validation')
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
+
 const router = express.Router()
 
 router.get(`${API_PATH}/user`, verifyToken, user.index)

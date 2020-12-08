@@ -1,6 +1,6 @@
 'use strict'
 const Users = require('../../models/UserModel')
-const msg = require('../../helpers/exceptions')
+const msg = require('../../helpers/exceptions').default
 const { _paging } = require('../../helpers/pagination')
 const { deletes } = require('../../utils/crud')
 
