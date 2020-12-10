@@ -12,10 +12,10 @@ const pages = async (req, res, schema) => {
     const count = await schema.estimatedDocumentCount()
     const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
-      result: result,
+      result,
       page: paginations.page,
-      countPerPage: countPerPage,
-      count: count,
+      countPerPage,
+      count,
       limit: paginations.limit
     }
     msg.getResponse(req, res, dataMapping)
@@ -31,11 +31,10 @@ const save = async (req, res, schema) => {
     msg.successResponse(res, 'Create', storeData)
   } catch (error) {
     const cek = resultValidation(req)
-    if (!cek) {
-      msg.errorResponse(res, error, 500)
-    } else {
+    if (cek) {
       msg.errorResponse(res, cek, 500)
     }
+    msg.errorResponse(res, error, 500)
   }
 }
 
@@ -43,7 +42,7 @@ const read = async (req, res, schema, next) => {
   try {
     const { id } = req.params
     const showData = await schema.findById(id)
-    if (!showData) return next()
+    if (!showData) next()
     msg.successResponse(res, 'Get', showData)
   } catch (error) {
     msg.errorResponse(res, error, 500)
@@ -56,7 +55,7 @@ const updated = async (req, res, schema, options, next) => {
   try {
     const updateData = await schema
       .findByIdAndUpdate(id, { $set: body }, options)
-    if (!updateData) return next()
+    if (!updateData) next()
     msg.successResponse(res, 'Update', updateData)
   } catch (error) {
     msg.errorResponse(res, error, 500)
@@ -66,14 +65,14 @@ const updated = async (req, res, schema, options, next) => {
 const deletes = async (res, schema, id, next) => {
   try {
     const destroyItem = await schema.findByIdAndRemove(id)
-    if (!destroyItem) return next()
+    if (!destroyItem) next()
     msg.successResponse(res, 'Delete', destroyItem)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
 }
 
-const cleanAll = async(res, schema) => {
+const cleanAll = async (res, schema) => {
   try {
     const cleaning = await schema.deleteMany({})
     msg.successResponse(res, 'Delete All', cleaning)
@@ -85,4 +84,3 @@ const cleanAll = async(res, schema) => {
 module.exports = {
   pages, save, read, updated, deletes, cleanAll
 }
-

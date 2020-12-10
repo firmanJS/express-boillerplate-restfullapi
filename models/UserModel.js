@@ -1,8 +1,8 @@
-'use strict'
 const mongoose = require('mongoose')
 const attributes = require('./attributes/user_attr')
 const remap = require('./functions/user_func')
-const Schema = mongoose.Schema
+
+const { Schema } = mongoose
 
 const UserSchema = new Schema({
   fullname: { type: String, upercase: true, index: true },

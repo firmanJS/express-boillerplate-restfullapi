@@ -1,6 +1,6 @@
-var winston = require('winston')
+const winston = require('winston')
 
-var options = {
+const options = {
   // file: {
   //   level: 'info',
   //   filename: `${appRoot}/logs/your-app.log`,
@@ -18,7 +18,7 @@ var options = {
   }
 }
 
-var logger = winston.createLogger({
+const logger = winston.createLogger({
   transports: [
     // new winston.transports.File(options.file),
     new winston.transports.Console(options.console)
@@ -27,7 +27,7 @@ var logger = winston.createLogger({
 })
 
 logger.stream = {
-  write: function (message, encoding) {
+  write(message) {
     logger.info(message)
   }
 }

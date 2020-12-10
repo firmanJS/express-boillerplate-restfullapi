@@ -45,7 +45,8 @@
 1. validiation, use express-valdator
 1. pagination example
 1. custom message api response
-1. [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)
+1. eslint airbnb base
+<!-- 1. [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) -->
 
 ## unit testing
 <h1 align=center>

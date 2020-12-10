@@ -1,13 +1,17 @@
 FROM node:14-alpine
 
-WORKDIR /apps
+LABEL Maintainer="Firman Abdul Hakim <fimzhakim@gmail.com>" \
+      Description="Nodejs Expressjs"
 
-COPY package.json /apps
-COPY package-lock.json /apps
+# Create app directory
+WORKDIR /usr/src/app
+
+COPY package*.json ./
 
 RUN npm install && npm cache clean --force
 
-COPY . ./apps
+# Bundle app source
+COPY . .
 
 EXPOSE 2000
 

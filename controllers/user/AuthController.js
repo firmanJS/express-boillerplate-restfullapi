@@ -1,4 +1,3 @@
-'use strict'
 const Users = require('../../models/UserModel')
 const BlackList = require('../../models/BlacklistModel')
 const msg = require('../../helpers/exceptions')
@@ -20,11 +19,12 @@ const login = async (param, res) => {
 
 const logout = async (req, res) => {
   try {
+    // eslint-disable-next-line global-require
     const jwt = require('jsonwebtoken')
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
       const decoded = jwt.decode(token)
-      await BlackList.create({ token: token, author: decoded.id })
+      await BlackList.create({ token, author: decoded.id })
       msg.customResponse(res, 200, 'Logout sucessfully', null)
     } else {
       msg.errorResponse(res, 'Headers not set or token is expired', 422)

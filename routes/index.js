@@ -1,5 +1,5 @@
-'use strict'
 const express = require('express')
+
 const routing = express()
 const user = require('./UserRoute')
 const item = require('./ItemRoute')
