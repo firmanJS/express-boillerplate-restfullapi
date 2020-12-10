@@ -1,4 +1,3 @@
-'use strict'
 const hash = require('password-hash')
 const jwt = require('jsonwebtoken')
 const { check } = require('express-validator')
@@ -14,10 +13,10 @@ const inputValidationUser = (req) => {
   return input
 }
 
-const verifyLoginPassword = (param, check) => {
+const verifyLoginPassword = (param, verify) => {
   let resultLogin
-  const verify = hash.verify(param, check.password)
-  if (verify !== true) {
+  const verifyData = hash.verify(param, verify.password)
+  if (verifyData !== true) {
     resultLogin = {
       msg: 'Password incorect',
       code: 422,
@@ -25,15 +24,15 @@ const verifyLoginPassword = (param, check) => {
     }
   } else {
     const userToken = {
-      id: check._id,
-      username: check.username,
-      fullname: check.fullname
+      id: verify._id,
+      username: verify.username,
+      fullname: verify.fullname
     }
     const token = jwt.sign(userToken, process.env.SECRET_KEY, { expiresIn: '8h' })
     resultLogin = {
       msg: 'Authenticate success',
       code: 200,
-      data: { token: token }
+      data: { token }
     }
   }
   return resultLogin

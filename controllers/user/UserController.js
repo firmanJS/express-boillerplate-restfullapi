@@ -1,6 +1,5 @@
-'use strict'
 const Users = require('../../models/UserModel')
-const msg = require('../../helpers/exceptions').default
+const msg = require('../../helpers/exceptions')
 const { _paging } = require('../../helpers/pagination')
 const { deletes } = require('../../utils/crud')
 
@@ -13,10 +12,10 @@ const index = async (req, res) => {
     const count = await Users.estimatedDocumentCount()
     const countPerPage = Math.ceil(count / paginate.limit)
     const dataMapping = {
-      result: result,
+      result,
       page: paginate.page,
-      countPerPage: countPerPage,
-      count: count,
+      countPerPage,
+      count,
       limit: paginate.limit
     }
     msg.getResponse(req, res, dataMapping)

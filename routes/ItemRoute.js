@@ -1,9 +1,9 @@
-'use strict'
 const express = require('express')
 const item = require('../controllers/item/ItemController')
 const { itemValidation } = require('../controllers/item/validation')
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
+
 const router = express.Router()
 
 router.get(`${API_PATH}/item`, verifyToken, item.index)
