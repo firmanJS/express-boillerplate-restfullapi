@@ -53,31 +53,17 @@ const notFoundResponse = (res) => res.status(404).json({
 })
 
 const errorResponse = (res, msg, code) => {
-  let message
+  const message = {
+    message: `Error. ${msg}`,
+    status: 'bad request',
+    data: []
+  }
   if (msg.errmsg) {
-    message = {
-      message: msg.errmsg,
-      status: 'bad request',
-      data: []
-    }
+    message.message = msg.errmsg
   } else if (msg.message) {
-    message = {
-      message: msg.message,
-      status: 'bad request',
-      data: []
-    }
+    message.message = msg.message
   } else if (msg.errors) {
-    message = {
-      message: msg.errors,
-      status: 'bad request',
-      data: []
-    }
-  } else {
-    message = {
-      message: `Error. ${msg}`,
-      status: 'bad request',
-      data: []
-    }
+    message.message = msg.errors
   }
   res.status(code).json(message)
 }
