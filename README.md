@@ -119,7 +119,7 @@ in file `documentation.json` export to your postman
 .
 ├── config/           * all configuration file here
 |   └── db.js         * configuration database
-├── controllers/      * all controllers file here
+├── api/              * all api file here
 ├── helpers/          * all helper or middleware file here
 ├── models/           * all models schema file here
 |   └── attributes    * custom your attribute if line is to long
@@ -137,7 +137,7 @@ in file `documentation.json` export to your postman
 * Guideline:
   * Use camelCase for variable name, naming function, load module or other functions
   * Use UpperCase for Constant Variable
-  * Use PascalCase for class name, models, controller, route, load module model
+  * Use PascalCase for class name, models, api, route, load module model
   * Use snake_case for file name as variable
   * Function name use Verb
   * Variable name use Noun

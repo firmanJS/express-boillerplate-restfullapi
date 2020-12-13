@@ -60,9 +60,15 @@ const errorResponse = (res, msg, code) => {
       status: 'bad request',
       data: []
     }
-  } else if (typeof msg === 'object') {
+  } else if (msg.message) {
     message = {
-      msg,
+      message: msg.message,
+      status: 'bad request',
+      data: []
+    }
+  } else if (msg.errors) {
+    message = {
+      message: msg.errors,
       status: 'bad request',
       data: []
     }

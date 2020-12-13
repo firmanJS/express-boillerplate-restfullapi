@@ -1,8 +1,8 @@
 const express = require('express')
 const { validationResult } = require('express-validator')
-const user = require('../controllers/user/UserController')
-const auth = require('../controllers/user/AuthController')
-const { inputValidationUser, loginValidation } = require('../controllers/user/validation')
+const user = require('../api/user/UserController')
+const auth = require('../api/user/AuthController')
+const { inputValidationUser, loginValidation } = require('../api/user/validation')
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
 

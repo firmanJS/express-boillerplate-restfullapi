@@ -26,6 +26,13 @@ const connectWithRetry = () => mongoose.connect(dbUrl, {
   }
 })
 
+if (process.env.NODE_ENV === 'development') {
+  mongoose.set('debug', (collectionName, method, query, doc) => {
+    // eslint-disable-next-line no-console
+    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+  });
+}
+
 module.exports = {
   connectWithRetry
 }

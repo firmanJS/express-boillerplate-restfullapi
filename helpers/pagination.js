@@ -1,7 +1,40 @@
+const jsonParse = (str) => {
+  let parsing
+  try {
+    parsing = JSON.parse(str)
+  } catch (e) {
+    parsing = e
+  }
+
+  return parsing
+}
+
 const paging = (req) => {
-  const search = (req.query.search ? JSON.parse(req.query.search) : null)
-  const sort = (req.query.sort ? JSON.parse(req.query.sort) : { _id: -1 })
-  const where = (req.query.where ? JSON.parse(req.query.where) : null)
+  let search
+  try {
+    if (req.query.search) {
+      const searching = jsonParse(req.query.search)
+      let push = {}
+      let value
+
+      for (prop in searching) {
+        if (searching[prop] instanceof String) {
+          value = { $regex: '' }
+        } else {
+          value = searching[prop]
+        }
+        push[prop] = value
+      }
+
+      search = push
+    } else {
+      search = {}
+    }
+  } catch (error) {
+    return error
+  }
+  const sort = (req.query.sort ? jsonParse(req.query.sort) : { _id: -1 })
+  const where = (req.query.where ? jsonParse(req.query.where) : {})
   const page = req.query.page || 1
   const limit = req.query.limit || 5
 

@@ -1,6 +1,6 @@
 const express = require('express')
-const country = require('../controllers/country/CountryController')
-const { countryValidation } = require('../controllers/country/validation')
+const country = require('../api/country/CountryController')
+const { countryValidation } = require('../api/country/validation')
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
 

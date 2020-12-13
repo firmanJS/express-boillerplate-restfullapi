@@ -1,6 +1,6 @@
 const express = require('express')
-const customer = require('../controllers/customer/CustomerController')
-const { customerValidation } = require('../controllers/customer/validation')
+const customer = require('../api/customer/CustomerController')
+const { customerValidation } = require('../api/customer/validation')
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
 
