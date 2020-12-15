@@ -2,11 +2,18 @@ const msg = require('../helpers/exceptions')
 const { paging } = require('../helpers/pagination')
 const { resultValidation } = require('../helpers/validation')
 
-const pages = async (req, res, schema, indexing = {}) => {
+const pages = async (req, res, schema, search, select = [], indexing = {}) => {
   const paginations = paging(req)
+  let searching
+  if (search.status) {
+    searching = paginations.search
+  } else {
+    searching = search.condition
+  }
   try {
     const result = await schema.find(paginations.where)
-      .or(paginations.search)
+      .select(select)
+      .or(searching)
       .sort(paginations.sort)
       .limit(paginations.limit)
       .skip((paginations.limit * paginations.page) - paginations.limit)

@@ -1,4 +1,5 @@
 const express = require('express')
+const rateLimit = require('express-rate-limit')
 const { validationResult } = require('express-validator')
 const user = require('../api/user/UserController')
 const auth = require('../api/user/AuthController')
@@ -6,9 +7,20 @@ const { inputValidationUser, loginValidation } = require('../api/user/validation
 const { API_PATH } = require('../helpers/constant')
 const { verifyToken } = require('../helpers/token_validation')
 
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 15 minutes
+  max: 3, // limit each IP to 3 requests per windowMs
+  message: {
+    code: 429,
+    status: 'too many request',
+    message: 'request ke endpoint ini dibatasi 3 kali dalam satu menit',
+    data: []
+  }
+})
+
 const router = express.Router()
 
-router.get(`${API_PATH}/user`, verifyToken, user.index)
+router.get(`${API_PATH}/user`, verifyToken, limiter, user.index)
 router.post(`${API_PATH}/user`, verifyToken, (req, res) => {
   user.store(inputValidationUser(req), res)
 })

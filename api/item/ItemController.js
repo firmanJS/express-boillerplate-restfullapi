@@ -1,9 +1,10 @@
 const Items = require('../../models/ItemModel')
+const { SEARCH } = require('../../helpers/constant')
 const {
   pages, save, read, updated, deletes
 } = require('../../utils/crud')
 
-const index = (req, res) => pages(req, res, Items)
+const index = (req, res) => pages(req, res, Items, SEARCH)
 const store = (req, res) => save(req, res, Items)
 const show = (req, res, next) => read(req, res, Items, next)
 const update = (req, res, next) => updated(req, res, Items, { new: true }, next)

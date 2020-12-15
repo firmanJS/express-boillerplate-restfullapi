@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const jsonParse = (str) => {
   let parsing
   try {
@@ -9,27 +10,36 @@ const jsonParse = (str) => {
   return parsing
 }
 
+const extractSearch = (req) => {
+  let search
+  if (req.query.search) {
+    const searching = jsonParse(req.query.search)
+    const push = {}
+    let value
+    let prop
+
+    // eslint-disable-next-line guard-for-in
+    for (prop in searching) {
+      if (typeof searching[prop] === 'string' || searching[prop] instanceof String) {
+        value = new RegExp(searching[prop], 'i')
+      } else {
+        value = searching[prop]
+      }
+      push[prop] = value
+    }
+
+    search = push
+  } else {
+    search = {}
+  }
+
+  return search
+}
+
 const paging = (req) => {
   let search
   try {
-    if (req.query.search) {
-      const searching = jsonParse(req.query.search)
-      let push = {}
-      let value
-
-      for (prop in searching) {
-        if (searching[prop] instanceof String) {
-          value = { $regex: '' }
-        } else {
-          value = searching[prop]
-        }
-        push[prop] = value
-      }
-
-      search = push
-    } else {
-      search = {}
-    }
+    search = extractSearch(req)
   } catch (error) {
     return error
   }
