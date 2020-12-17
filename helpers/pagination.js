@@ -15,19 +15,21 @@ const extractSearch = (req) => {
   if (req.query.search) {
     const searching = jsonParse(req.query.search)
     const push = {}
-    let value
-    let prop
+
+    const props = (strings) => {
+      let value
+      if (typeof strings === 'string' || strings instanceof String) {
+        value = new RegExp(strings, 'i')
+      } else {
+        value = strings
+      }
+      return value
+    }
 
     // eslint-disable-next-line guard-for-in
     for (prop in searching) {
-      if (typeof searching[prop] === 'string' || searching[prop] instanceof String) {
-        value = new RegExp(searching[prop], 'i')
-      } else {
-        value = searching[prop]
-      }
-      push[prop] = value
+      push[prop] = props(searching[prop])
     }
-
     search = push
   } else {
     search = {}

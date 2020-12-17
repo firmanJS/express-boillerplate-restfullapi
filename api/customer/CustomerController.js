@@ -32,9 +32,9 @@ const searching = (req) => {
 
 const index = (req, res) => pages(req, res, Customer, searching(req))
 const store = (req, res) => save(req, res, Customer)
-const show = (req, res, next) => read(req, res, Customer, next)
-const update = (req, res, next) => updated(req, res, Customer, { new: true }, next)
-const destroy = (req, res, next) => deletes(res, Customer, req.params.id, next)
+const show = (req, res) => read(req, res, Customer)
+const update = (req, res) => updated(req, res, Customer, { new: true })
+const destroy = (req, res) => deletes(req, res, Customer, req.params.id)
 
 module.exports = {
   index, store, show, update, destroy

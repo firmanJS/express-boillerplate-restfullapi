@@ -1,10 +1,10 @@
 const Users = require('../../models/UserModel')
 const msg = require('../../helpers/exceptions')
-const { _paging } = require('../../helpers/pagination')
+const { paging } = require('../../helpers/pagination')
 const { deletes } = require('../../utils/crud')
 
 const index = async (req, res) => {
-  const paginate = _paging(req)
+  const paginate = paging(req)
   try {
     const result = await Users.find(paginate.where)
       .skip((paginate.limit * paginate.page) - paginate.limit)
