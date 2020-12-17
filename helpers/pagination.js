@@ -10,18 +10,18 @@ const jsonParse = (str) => {
   return parsing
 }
 
+const props = (strings) => {
+  let value
+  if (typeof strings === 'string' || strings instanceof String) {
+    value = new RegExp(strings, 'i')
+  } else {
+    value = strings
+  }
+  return value
+}
+
 const extractSearch = (req) => {
   let search
-
-  const props = (strings) => {
-    let value
-    if (typeof strings === 'string' || strings instanceof String) {
-      value = new RegExp(strings, 'i')
-    } else {
-      value = strings
-    }
-    return value
-  }
 
   if (req.query.search) {
     const searching = jsonParse(req.query.search)
