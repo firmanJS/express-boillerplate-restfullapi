@@ -12,20 +12,20 @@ const jsonParse = (str) => {
 
 const extractSearch = (req) => {
   let search
+
+  const props = (strings) => {
+    let value
+    if (typeof strings === 'string' || strings instanceof String) {
+      value = new RegExp(strings, 'i')
+    } else {
+      value = strings
+    }
+    return value
+  }
+
   if (req.query.search) {
     const searching = jsonParse(req.query.search)
     const push = {}
-
-    const props = (strings) => {
-      let value
-      if (typeof strings === 'string' || strings instanceof String) {
-        value = new RegExp(strings, 'i')
-      } else {
-        value = strings
-      }
-      return value
-    }
-
     // eslint-disable-next-line guard-for-in
     for (prop in searching) {
       push[prop] = props(searching[prop])
