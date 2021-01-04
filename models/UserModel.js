@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   ...attributes,
   password: { type: String, index: true, required: true },
   createdBy: { type: String, index: true, default: null },
+  last_login: { type:Date , default: new Date().toISOString() },
   updatedBy: { type: String, index: true, default: null }
 }, { timestamps: true })
 

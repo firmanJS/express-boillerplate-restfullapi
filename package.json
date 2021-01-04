@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "prod": "pm2 server.js",
-    "dev": "nodemon --max-old-space-size=2048 server.js",
+    "dev": "nodemon --max-old-space-size=2048 --legacy-watch server.js",
     "test": "nyc --reporter=html mocha --timeout 10000",
     "coverage": "nyc --reporter=text mocha --check-coverage --lines 90"
   },
