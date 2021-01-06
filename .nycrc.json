@@ -1,0 +1,19 @@
+{
+    "include": [
+        "app/**/*.js",
+        "lib/**/*.js",
+        "server.js"
+    ],
+    "cache": true,
+    "all": true,
+    "reporter": [
+        "html",
+        "text-summary"
+    ],
+    "excludeNodeModules": false,
+    "lines": 255,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "check-coverage": true
+}
