@@ -3,7 +3,7 @@ const { paging } = require('../helpers/pagination')
 const { resultValidation } = require('../helpers/validation')
 const { validateData } = require('../helpers/custom')
 
-const pages = async (req, res, schema, search, select = [], indexing = {}) => {
+const searchCondition = (req, search) => {
   const paginations = paging(req)
   let searching
   if (search.status) {
@@ -11,6 +11,13 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
   } else {
     searching = search.condition
   }
+
+  return searching
+}
+
+const pages = async (req, res, schema, search, select = [], indexing = {}) => {
+  const paginations = paging(req)
+  const searching = searchCondition(req, search)
   try {
     const result = await schema.find(paginations.where)
       .select(select).or(searching)
