@@ -52,8 +52,8 @@ const update = async (req, res) => {
   }
 }
 
-const destroy = async (req, res, next) => {
-  await deletes(res, Users, req.params.id, next)
+const destroy = async (req, res) => {
+  await deletes(req, res, Users, req.params.id)
 }
 
 module.exports = {

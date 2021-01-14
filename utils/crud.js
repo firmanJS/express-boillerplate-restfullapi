@@ -17,12 +17,15 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
       .sort(paginations.sort)
       .limit(paginations.limit)
       .skip((paginations.limit * paginations.page) - paginations.limit)
-      .lean().hint(indexing)
+      .lean()
+      .hint(indexing)
     const count = await schema.estimatedDocumentCount()
     const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
-      result, page: paginations.page,
-      countPerPage, count,
+      result,
+      page: paginations.page,
+      countPerPage,
+      count,
       limit: paginations.limit
     }
     msg.getResponse(req, res, dataMapping)

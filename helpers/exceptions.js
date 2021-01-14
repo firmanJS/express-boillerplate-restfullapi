@@ -22,7 +22,6 @@ const errorHandler = (error, res) => {
 }
 
 const getResponse = (req, res, data) => res.status(200).json({
-  code: 200,
   message: 'Get data successfull',
   status: 'success',
   data: data.result,
@@ -38,7 +37,6 @@ const getResponse = (req, res, data) => res.status(200).json({
 })
 
 const successResponse = (res, msg, data) => res.status(200).json({
-  code: 200,
   message: `${msg} data successfull`,
   status: 'success',
   data
@@ -56,7 +54,6 @@ const customResponse = (res, code, msg, data) => {
 const notFoundResponse = (res) => {
   log.info('Content not found')
   res.status(404).json({
-    code: 404,
     message: 'Content not found',
     status: 'empty',
     data: []

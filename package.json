@@ -6,7 +6,7 @@
   "scripts": {
     "prod": "pm2 server.js",
     "dev": "nodemon --max-old-space-size=2048 --legacy-watch server.js",
-    "test": "DEBUG=true mocha --timeout 30000 --exit",
+    "test": "mocha --timeout 30000 --exit",
     "coverage": "nyc npm run test"
   },
   "repository": {
@@ -60,6 +60,7 @@
     "nyc": "^15.1.0",
     "password-hash": "^1.2.2",
     "pm2": "^4.5.0",
+    "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   }
 }

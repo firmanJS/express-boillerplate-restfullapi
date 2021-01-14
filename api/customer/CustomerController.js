@@ -4,20 +4,20 @@ const {
 } = require('../../utils/crud')
 
 const searching = (req) => {
-  let nama_kantor = { kantor: {} }
-  let nama_search = { pelanggan : {}}
+  let namaKantor = { kantor: {} }
+  let namaSearch = { pelanggan: {} }
   const search = {}
 
   if (req.query.namakantor) {
-    nama_kantor.kantor = { $elemMatch: { nama_kantor: req.query.namakantor }}
+    namaKantor.kantor = { $elemMatch: { nama_kantor: req.query.namakantor } }
   } else {
-    nama_kantor = {}
+    namaKantor = {}
   }
 
   if (req.query.nama) {
-    nama_search.pelanggan.nama = req.query.nama
+    namaSearch.pelanggan.nama = req.query.nama
   } else {
-    nama_search = {}
+    namaSearch = {}
   }
 
   if (req.query.search) {
@@ -26,7 +26,7 @@ const searching = (req) => {
 
   return {
     status: false,
-    condition: { ...search, ...nama_search, ...nama_kantor }
+    condition: { ...search, ...namaSearch, ...namaKantor }
   }
 }
 
