@@ -1,10 +1,13 @@
-const appRoot = require('app-root-path');
-const winston = require('winston');
+const appRoot = require('app-root-path')
+const winston = require('winston')
+const moment = require('moment')
 
+const mydate = new Date().toISOString()
+const myDateName = moment(mydate).utc().format('DD-MM-YYYY_HH.mm.ss')
 const options = {
   file: {
     level: 'info',
-    filename: `${appRoot}/logs/info.log`,
+    filename: `${appRoot}/logs/${myDateName}.info.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880,
