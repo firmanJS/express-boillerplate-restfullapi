@@ -1,7 +1,7 @@
 const express = require('express')
 const customer = require('../api/customer/CustomerController')
 const { customerValidation } = require('../api/customer/validation')
-const { verifyToken } = require('../helpers/token_validation')
+const { verifyToken } = require('../middleware')
 
 const router = express.Router()
 

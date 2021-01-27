@@ -15,7 +15,7 @@ const errorHandler = (error, res) => {
   if (!error.statusCode) error.statusCode = 500
   log.error(error.toString())
   res.status(error.statusCode).json({
-    error,
+    error: error.toString(),
     status: error.statusCode,
     msg: error.toString()
   })
@@ -63,7 +63,7 @@ const notFoundResponse = (res) => {
 const errorResponse = (res, msg, code) => {
   const message = {
     message: `Error. ${msg}`,
-    status: 'bad request',
+    status: 'something wrong',
     data: []
   }
   if (msg.errmsg) {

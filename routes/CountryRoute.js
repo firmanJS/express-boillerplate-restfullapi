@@ -1,7 +1,7 @@
 const express = require('express')
 const country = require('../api/country/CountryController')
 const { countryValidation } = require('../api/country/validation')
-const { verifyToken } = require('../helpers/token_validation')
+const { verifyToken } = require('../middleware')
 
 const router = express.Router()
 

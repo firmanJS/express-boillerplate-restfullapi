@@ -15,11 +15,13 @@ const verifyToken = async (req, res, next) => {
         message: 'Your token is blacklist, please login again'
       })
     }
+    // eslint-disable-next-line consistent-return
     jwt.verify(token, process.env.SECRET_KEY, (err) => {
       if (err) {
         log.info(err)
-        res.status(500).send({ auth: false, message: err })
+        return res.status(500).send({ auth: false, message: err })
       }
+
       next()
     })
   } else {
