@@ -1,13 +1,13 @@
-const appRoot = require('app-root-path')
+// const appRoot = require('app-root-path')
 const winston = require('winston')
-const moment = require('moment')
+// const moment = require('moment')
 
-const mydate = new Date().toISOString()
-const myDateName = moment(mydate).utc().format('DD-MM-YYYY_HH.mm.ss')
+// const mydate = new Date().toISOString()
+// const myDateName = moment(mydate).utc().format('DD-MM-YYYY_HH.mm.ss')
 const options = {
   file: {
     level: 'info',
-    filename: `${appRoot}/logs/${myDateName}.info.log`,
+    // filename: `${appRoot}/logs/${myDateName}.info.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880,
@@ -24,7 +24,7 @@ const options = {
 
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.File(options.file),
+    // new winston.transports.File(options.file),
     new winston.transports.Console(options.console)
   ],
   exitOnError: false
