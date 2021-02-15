@@ -1,6 +1,5 @@
 const express = require('express')
 const rateLimit = require('express-rate-limit')
-const { validationResult } = require('express-validator')
 const user = require('../api/user/UserController')
 const auth = require('../api/user/AuthController')
 const { inputValidationUser, schemas } = require('../api/user/validation')
