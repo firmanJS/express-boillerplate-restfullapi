@@ -49,7 +49,7 @@ jobs:
         MONGO_PORT: ${{ secrets.MONGO_PORT }}
 
     - name: Running test inside container docker
-      run: docker-compose exec boillerplate npm run test
+      run: docker exec -t boillerplate npm test
         
     - name: coverage
       uses: codecov/codecov-action@v1
