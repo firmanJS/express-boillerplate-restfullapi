@@ -32,9 +32,9 @@ jobs:
       env:
         APP_PORT: ${{ secrets.Boilerplate-env.APP_PORT }}
         MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
-        MONGO_INITDB_ROOT_PASSWORD: ${{ Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
-        MONGO_INITDB_ROOT_USERNAME: ${{ Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
-        MONGO_PORT: ${{ Boilerplate-env.MONGO_PORT }}
+        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
+        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
+        MONGO_PORT: ${{ secrets.Boilerplate-env.MONGO_PORT }}
 
     - name: coverage
       uses: codecov/codecov-action@v1
