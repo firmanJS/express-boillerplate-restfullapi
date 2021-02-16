@@ -48,6 +48,9 @@ jobs:
         MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
         MONGO_PORT: ${{ secrets.MONGO_PORT }}
 
+    - name: Running test inside container docker
+      run: docker-compose exec boillerplate npm run test
+        
     - name: coverage
       uses: codecov/codecov-action@v1
       with:
