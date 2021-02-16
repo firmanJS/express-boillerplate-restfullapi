@@ -46,9 +46,6 @@ jobs:
 
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build -d
-
-    - name: Running coverage inside container docker
-      run: docker exec -t boillerplate npm run coverage
       
     - name: Running test inside container docker
       run: docker exec -t boillerplate npm run test
