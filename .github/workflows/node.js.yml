@@ -29,7 +29,7 @@ jobs:
       
     - uses: actions/checkout@v2
     - name: Build Docker
-    - uses: actions/setup-node@v1
+      uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - env:
@@ -38,7 +38,7 @@ jobs:
        MONGO_INITDB_ROOT_PASSWORD: ${{ Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
        MONGO_INITDB_ROOT_USERNAME: ${{ Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
        MONGO_PORT: ${{ Boilerplate-env.MONGO_PORT }}
-      run: docker-compose up --build
+    - run: docker-compose up --build
 
     - name: coverage
       uses: codecov/codecov-action@v1
