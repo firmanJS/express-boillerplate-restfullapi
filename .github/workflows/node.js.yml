@@ -47,8 +47,8 @@ jobs:
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build -d
       
-    - name: Running test inside container docker
-      run: docker exec -t boillerplate npm run test
+    # - name: Running test inside container docker
+    #   run: docker exec -t boillerplate npm run test
         
     - name: coverage
       uses: codecov/codecov-action@v1
