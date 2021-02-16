@@ -16,7 +16,9 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+#         node-version: [10.x, 12.x, 14.x, 15.x]
+        # only node version 14.x 
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -30,7 +32,7 @@ jobs:
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build -d
       env:
-        APP_PORT: ${{ secrets.Boilerplate-env.APP_PORT }}
+        APP_PORT: ${{ secrets.APP_PORT }}
         MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
         MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
         MONGO_INITDB_ROOT_USERNAME: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
