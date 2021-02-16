@@ -27,16 +27,19 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
       
-    - name: Build Docker
-      uses: actions/checkout@v2
-      env:
-       APP_PORT: ${{ Boilerplate-env.APP_PORT }}
-       MONGO_INITDB_DATABASE: ${{ Boilerplate-env.MONGO_INITDB_DATABASE }}
-       MONGO_INITDB_ROOT_PASSWORD: ${{ Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
-       MONGO_INITDB_ROOT_USERNAME: ${{ Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
-       MONGO_PORT: ${{ Boilerplate-env.MONGO_PORT }}
+    - name: Build docker-compose
+      run: docker-compose -f docker-compose.yml up --build -d
+        
+#     - name: Build Docker
+#       uses: actions/checkout@v2
+#       env:
+#        APP_PORT: ${{ Boilerplate-env.APP_PORT }}
+#        MONGO_INITDB_DATABASE: ${{ Boilerplate-env.MONGO_INITDB_DATABASE }}
+#        MONGO_INITDB_ROOT_PASSWORD: ${{ Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
+#        MONGO_INITDB_ROOT_USERNAME: ${{ Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
+#        MONGO_PORT: ${{ Boilerplate-env.MONGO_PORT }}
        
-       run: docker-compose up --build
+#        run: docker-compose up --build
 
     - name: coverage
       uses: codecov/codecov-action@v1
