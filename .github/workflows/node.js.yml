@@ -37,6 +37,6 @@ jobs:
 
     - name: coverage
       uses: codecov/codecov-action@v1
-        with:
-          name: actions ${{ matrix.node }}
-          fail_ci_if_error: false
+      with:
+        name: actions ${{ matrix.node }}
+        fail_ci_if_error: false
