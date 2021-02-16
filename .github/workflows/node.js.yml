@@ -27,16 +27,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
+        # skip because using docker
+#     - run: npm install
       
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build -d
       env:
         APP_PORT: ${{ secrets.APP_PORT }}
         MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
-        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
-        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
-        MONGO_PORT: ${{ secrets.Boilerplate-env.MONGO_PORT }}
+        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+        MONGO_PORT: ${{ secrets.MONGO_PORT }}
 
     - name: coverage
       uses: codecov/codecov-action@v1
