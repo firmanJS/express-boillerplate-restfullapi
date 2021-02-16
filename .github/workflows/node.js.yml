@@ -40,7 +40,7 @@ jobs:
         echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
 
     - name: Build docker-compose
-      run: docker-compose -f docker-compose.yml up --build -d
+      run: docker-compose -f docker-compose.yml up --build
       env:
         APP_PORT: ${{ secrets.APP_PORT }}
         MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
@@ -48,8 +48,11 @@ jobs:
         MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
         MONGO_PORT: ${{ secrets.MONGO_PORT }}
 
+    - name: Running coverage inside container docker
+      run: docker exec -t boillerplate npm run coverage
+      
     - name: Running test inside container docker
-      run: docker exec -t boillerplate npm test
+      run: docker exec -t boillerplate npm run test
         
     - name: coverage
       uses: codecov/codecov-action@v1
