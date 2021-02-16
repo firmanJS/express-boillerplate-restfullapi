@@ -35,14 +35,14 @@ const methodSame = (users, code, done) => {
 // eslint-disable-next-line no-undef
 describe('Users', () => {
   // eslint-disable-next-line no-undef
-  describe('/POST Login user', () => {
-    // eslint-disable-next-line no-undef
-    it('it should login user valid user', (done) => {
-      assert.typeOf(users.username, 'string')
-      assert.typeOf(users.password, 'string')
-      methodSame(users, 200, done)
-    })
-  })
+  // describe('/POST Login user', () => {
+  //   // eslint-disable-next-line no-undef
+  //   it('it should login user valid user', (done) => {
+  //     assert.typeOf(users.username, 'string')
+  //     assert.typeOf(users.password, 'string')
+  //     methodSame(users, 200, done)
+  //   })
+  // })
 
   // eslint-disable-next-line no-undef
   describe('/POST Login user', () => {
