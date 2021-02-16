@@ -38,15 +38,14 @@ jobs:
         echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
         echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
         echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+        echo TZ=${{ secrets.TZ }} >> .env
+        echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+        echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+        echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
+        echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
 
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build
-      env:
-        APP_PORT: ${{ secrets.APP_PORT }}
-        MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
-        MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
-        MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-        MONGO_PORT: ${{ secrets.MONGO_PORT }}
 
     - name: Running coverage inside container docker
       run: docker exec -t boillerplate npm run coverage
