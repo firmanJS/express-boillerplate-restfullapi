@@ -29,8 +29,14 @@ jobs:
 #        MONGO_PORT: ${{ secrets.MONGO_PORT }}
 #     - name: Build the stack
 #       run: docker-compose up --build
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }} && install dependencies
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
+
+    - name: coverage
+      uses: codecov/codecov-action@v1
+        with:
+          name: actions ${{ matrix.node }}
+          fail_ci_if_error: false
