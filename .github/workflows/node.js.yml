@@ -28,13 +28,13 @@ jobs:
     - run: npm install
       
     - name: Build docker-compose
+      run: docker-compose -f docker-compose.yml up --build -d
       env:
         APP_PORT: ${{ Boilerplate-env.APP_PORT }}
         MONGO_INITDB_DATABASE: ${{ Boilerplate-env.MONGO_INITDB_DATABASE }}
         MONGO_INITDB_ROOT_PASSWORD: ${{ Boilerplate-env.MONGO_INITDB_ROOT_PASSWORD }}
         MONGO_INITDB_ROOT_USERNAME: ${{ Boilerplate-env.MONGO_INITDB_ROOT_USERNAME }}
         MONGO_PORT: ${{ Boilerplate-env.MONGO_PORT }}
-      run: docker-compose -f docker-compose.yml up --build -d
 
     - name: coverage
       uses: codecov/codecov-action@v1
