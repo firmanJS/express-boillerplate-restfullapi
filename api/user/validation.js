@@ -1,6 +1,6 @@
 const hash = require('password-hash')
 const jwt = require('jsonwebtoken')
-const { check } = require('express-validator')
+const Joi = require('joi')
 require('dotenv').config()
 
 const inputValidationUser = (req) => {
@@ -38,9 +38,11 @@ const verifyLoginPassword = (param, verify) => {
   return resultLogin
 }
 
-const loginValidation = [
-  check('username').not().isEmpty().withMessage('required value'),
-  check('password').not().isEmpty().withMessage('required value')
-]
+const schemas = {
+  userLogin: Joi.object().keys({
+    username: Joi.string().required(),
+    password: Joi.string().required()
+  })
+}
 
-module.exports = { inputValidationUser, verifyLoginPassword, loginValidation }
+module.exports = { inputValidationUser, verifyLoginPassword, schemas }

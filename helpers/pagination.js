@@ -27,7 +27,7 @@ const extractSearch = (req) => {
     const searching = jsonParse(req.query.search)
     const push = {}
     // eslint-disable-next-line guard-for-in
-    for (prop in searching) {
+    for (const prop in searching) {
       push[prop] = props(searching[prop])
     }
     search = push

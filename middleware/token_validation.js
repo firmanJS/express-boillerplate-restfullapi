@@ -1,6 +1,7 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const BlackList = require('../models/BlacklistModel')
+const log = require('../config/logger')
 
 // eslint-disable-next-line consistent-return
 const verifyToken = async (req, res, next) => {
@@ -8,18 +9,19 @@ const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
     const checkBlackList = await BlackList.findOne({ token })
     if (checkBlackList) {
+      log.info('Your token is blacklist, please login again')
       return res.status(401).send({
         auth: false,
         message: 'Your token is blacklist, please login again'
       })
     }
+    // eslint-disable-next-line consistent-return
     jwt.verify(token, process.env.SECRET_KEY, (err) => {
       if (err) {
-        res.status(500).send({
-          auth: false,
-          message: err
-        })
+        log.info(err)
+        return res.status(500).send({ auth: false, message: err })
       }
+
       next()
     })
   } else {
@@ -27,6 +29,7 @@ const verifyToken = async (req, res, next) => {
       auth: false,
       message: 'Token required'
     })
+    log.info('Token required')
   }
 }
 
