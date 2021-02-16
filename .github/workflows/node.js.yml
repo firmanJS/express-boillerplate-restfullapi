@@ -30,6 +30,15 @@ jobs:
         # skip because using docker
 #     - run: npm install
       
+    - name: Create env file
+      run: |
+        touch .env
+        echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+        echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
+        echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+        echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
+        echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+
     - name: Build docker-compose
       run: docker-compose -f docker-compose.yml up --build -d
       env:
