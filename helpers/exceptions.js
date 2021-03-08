@@ -45,7 +45,6 @@ const successResponse = (res, msg, data) => res.status(200).json({
 const customResponse = (res, code, msg, data) => {
   log.info(msg)
   res.status(code).json({
-    code,
     message: msg,
     data
   })

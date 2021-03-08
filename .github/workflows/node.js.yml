@@ -4,16 +4,12 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
 #         node-version: [10.x, 12.x, 14.x, 15.x]
@@ -29,29 +25,66 @@ jobs:
         node-version: ${{ matrix.node-version }}
         # skip because using docker
 #     - run: npm install
-      
-    - name: Create env file
-      run: |
-        touch .env
-        echo APP_PORT=${{ secrets.APP_PORT }} >> .env
-        echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
-        echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
-        echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
-        echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
-        echo TZ=${{ secrets.TZ }} >> .env
-        echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-        echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
-        echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
-        echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+  
+  run-docker-compose:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }} && install dependencies
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build docker-compose
-      run: docker-compose -f docker-compose.yml up --build -d
+      - name: Create env file
+        run: |
+          touch .env
+          echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+          echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
+          echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+          echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
+          echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+          echo TZ=${{ secrets.TZ }} >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+          echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
+          echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+
+      - name: Build docker-compose
+        run: docker-compose -f docker-compose.yml up --build -d
       
+      # - name: publish coverage
+      #   uses: paambaati/codeclimate-action@v2.5.7
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #   with:
+      #     coverageCommand: docker-compose exec boillerplate npm run coverage-report
+      #     debug: true
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
         
-    - name: coverage
-      uses: codecov/codecov-action@v1
-      with:
-        name: actions ${{ matrix.node }}
-        fail_ci_if_error: false
+  codecov:
+    needs: run-docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: coverage
+        uses: codecov/codecov-action@v1
+        with:
+          name: actions ${{ matrix.node }}
+          fail_ci_if_error: false
+
+  # coverage:
+  #   needs: [ codecov ]
+  #   name: coverage
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: '14.x'
+  #   - run: npm install
+  #   - uses: paambaati/codeclimate-action@v2.2.4
+  #     env:
+  #       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+  #     with:
+  #       coverageCommand: npm run coverage-report
