@@ -45,19 +45,18 @@ jobs:
       
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
-
-  coverage:   
-    steps:   
+        
     - name: coverage
       uses: codecov/codecov-action@v1
       with:
         name: actions ${{ matrix.node }}
         fail_ci_if_error: false
 
-    - name: publish coverage
-      uses: paambaati/codeclimate-action@v2.5.7
     - name: Build package
       run: npm install
+      
+    - name: publish coverage
+      uses: paambaati/codeclimate-action@v2.5.7
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
