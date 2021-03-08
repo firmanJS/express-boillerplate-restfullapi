@@ -1,0 +1,21 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-03-08T04:42:37.596Z",
+    "end": "2021-03-08T04:42:37.671Z",
+    "duration": 75
+  },
+  "failures": [],
+  "passes": [
+    {
+      "title": "it should login user invalid user",
+      "fullTitle": "Users /POST Login user it should login user invalid user",
+      "duration": 69
+    }
+  ],
+  "skipped": []
+}
