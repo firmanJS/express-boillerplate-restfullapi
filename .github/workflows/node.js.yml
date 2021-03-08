@@ -53,3 +53,11 @@ jobs:
       with:
         name: actions ${{ matrix.node }}
         fail_ci_if_error: false
+
+    - name: publish coverage
+      uses: paambaati/codeclimate-action@v2.5.7
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage
+        debug: true
