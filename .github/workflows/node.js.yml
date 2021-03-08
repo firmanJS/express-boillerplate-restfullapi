@@ -53,17 +53,17 @@ jobs:
       - name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
       
-      - name: publish coverage
-        uses: paambaati/codeclimate-action@v2.5.7
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: docker-compose exec boillerplate npm run coverage-report
-          debug: true
+      # - name: publish coverage
+      #   uses: paambaati/codeclimate-action@v2.5.7
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #   with:
+      #     coverageCommand: docker-compose exec boillerplate npm run coverage-report
+      #     debug: true
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
         
-  run-coverage:
+  codecov:
     needs: run-docker-compose
     runs-on: ubuntu-latest
     steps:
@@ -72,3 +72,19 @@ jobs:
         with:
           name: actions ${{ matrix.node }}
           fail_ci_if_error: false
+
+  coverage:
+    needs: [ codecov ]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: '14.x'
+    - run: npm install
+    - uses: paambaati/codeclimate-action@v2.2.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage-report
