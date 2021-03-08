@@ -54,9 +54,8 @@ jobs:
 
     - name: publish coverage
       uses: paambaati/codeclimate-action@v2.5.7
-      run: npm install
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
-        coverageCommand: npm run coverage-report
+        coverageCommand: npm install && npm run coverage-report
         debug: true
