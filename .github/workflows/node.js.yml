@@ -9,9 +9,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
 #         node-version: [10.x, 12.x, 14.x, 15.x]
@@ -56,6 +54,7 @@ jobs:
 
     - name: publish coverage
       uses: paambaati/codeclimate-action@v2.5.7
+      run: npm install
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
