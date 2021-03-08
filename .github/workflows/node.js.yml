@@ -73,18 +73,18 @@ jobs:
           name: actions ${{ matrix.node }}
           fail_ci_if_error: false
 
-  coverage:
-    needs: [ codecov ]
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-    - run: npm install
-    - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: npm run coverage-report
+  # coverage:
+  #   needs: [ codecov ]
+  #   name: coverage
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: '14.x'
+  #   - run: npm install
+  #   - uses: paambaati/codeclimate-action@v2.2.4
+  #     env:
+  #       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+  #     with:
+  #       coverageCommand: npm run coverage-report
