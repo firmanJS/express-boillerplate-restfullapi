@@ -8,6 +8,7 @@ const nameDB = process.env.MONGO_INITDB_DATABASE
 const sources = process.env.AUTH_SOURCE
 const portDB = process.env.MONGO_PORT
 const dbUrl = `mongodb://${userDB}:${passDB}@${serviceDB}:${portDB}/${nameDB}?authSource=${sources}`
+const log = require('./logger')
 
 mongoose.Promise = global.Promise
 const connectWithRetry = () => mongoose.connect(dbUrl, {
@@ -17,14 +18,26 @@ const connectWithRetry = () => mongoose.connect(dbUrl, {
   useUnifiedTopology: true
 }, (err) => {
   if (err) {
-    // eslint-disable-next-line no-console
-    console.error(`Failed to connect to mongo on startup - retrying in 5 sec ${err}`)
+    const msg = `Failed to connect to mongo on startup - retrying in 5 sec ${err}`
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error(msg)
+    } else {
+      log.info(msg)
+    }
     setTimeout(connectWithRetry(), 5000)
   } else {
     // eslint-disable-next-line no-console
     console.log('mongoDB Connected ✅')
   }
 })
+
+if (process.env.NODE_ENV === 'development') {
+  mongoose.set('debug', (collectionName, method, query, doc) => {
+    // eslint-disable-next-line no-console
+    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+  });
+}
 
 module.exports = {
   connectWithRetry

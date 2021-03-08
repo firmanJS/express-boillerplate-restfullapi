@@ -1,18 +1,17 @@
 const express = require('express')
-const country = require('../controllers/country/CountryController')
-const { countryValidation } = require('../controllers/country/validation')
-const { API_PATH } = require('../helpers/constant')
-const { verifyToken } = require('../helpers/token_validation')
+const country = require('../api/country/CountryController')
+const { countryValidation } = require('../api/country/validation')
+const { verifyToken } = require('../middleware')
 
 const router = express.Router()
 
-router.get(`${API_PATH}/country`, verifyToken, country.index)
-router.post(`${API_PATH}/country`, verifyToken, [countryValidation], (req, res) => {
+router.get('/', verifyToken, country.index)
+router.post('/', verifyToken, [countryValidation], (req, res) => {
   country.store(req, res)
 })
-router.get(`${API_PATH}/country/:id`, verifyToken, country.show)
-router.put(`${API_PATH}/country/:id`, verifyToken, country.update)
-router.delete(`${API_PATH}/country/:id`, verifyToken, country.destroy)
-router.delete(`${API_PATH}/country`, verifyToken, country.clean)
+router.get('/:id', verifyToken, country.show)
+router.put('/:id', verifyToken, country.update)
+router.delete('/:id', verifyToken, country.destroy)
+router.delete('/', verifyToken, country.clean)
 
 module.exports = router

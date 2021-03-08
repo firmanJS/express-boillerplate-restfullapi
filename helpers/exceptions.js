@@ -1,23 +1,27 @@
+const log = require('../config/logger')
+
 const notFoundHandler = (req, res) => {
-  const err = new Error('Not Found');
+  const msg = `Route : ${req.url} Not found.`
+  const err = new Error(msg)
+  log.info(err.toString())
   res.status(404).json({
     error: err.toString(),
     status: 404,
-    msg: `Route : ${req.url} Not found.`,
+    msg,
   })
 }
 
 const errorHandler = (error, res) => {
   if (!error.statusCode) error.statusCode = 500
+  log.error(error.toString())
   res.status(error.statusCode).json({
-    error,
+    error: error.toString(),
     status: error.statusCode,
     msg: error.toString()
   })
 }
 
 const getResponse = (req, res, data) => res.status(200).json({
-  code: 200,
   message: 'Get data successfull',
   status: 'success',
   data: data.result,
@@ -33,46 +37,42 @@ const getResponse = (req, res, data) => res.status(200).json({
 })
 
 const successResponse = (res, msg, data) => res.status(200).json({
-  code: 200,
   message: `${msg} data successfull`,
   status: 'success',
   data
 })
 
-const customResponse = (res, code, msg, data) => res.status(code).json({
-  code,
-  message: msg,
-  data
-})
+const customResponse = (res, code, msg, data) => {
+  log.info(msg)
+  res.status(code).json({
+    message: msg,
+    data
+  })
+}
 
-const notFoundResponse = (res) => res.status(404).json({
-  code: 404,
-  message: 'Content not found',
-  status: 'empty',
-  data: []
-})
+const notFoundResponse = (res) => {
+  log.info('Content not found')
+  res.status(404).json({
+    message: 'Content not found',
+    status: 'empty',
+    data: []
+  })
+}
 
 const errorResponse = (res, msg, code) => {
-  let message
-  if (msg.errmsg) {
-    message = {
-      message: msg.errmsg,
-      status: 'bad request',
-      data: []
-    }
-  } else if (typeof msg === 'object') {
-    message = {
-      msg,
-      status: 'bad request',
-      data: []
-    }
-  } else {
-    message = {
-      message: `Error. ${msg}`,
-      status: 'bad request',
-      data: []
-    }
+  const message = {
+    message: `Error. ${msg}`,
+    status: 'something wrong',
+    data: []
   }
+  if (msg.errmsg) {
+    message.message = msg.errmsg
+  } else if (msg.message) {
+    message.message = msg.message
+  } else if (msg.errors) {
+    message.message = msg.errors
+  }
+  log.error(message.message)
   res.status(code).json(message)
 }
 

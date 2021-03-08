@@ -1,0 +1,55 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+#         node-version: [10.x, 12.x, 14.x, 15.x]
+        # only node version 14.x 
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }} && install dependencies
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        # skip because using docker
+#     - run: npm install
+      
+    - name: Create env file
+      run: |
+        touch .env
+        echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+        echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
+        echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+        echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
+        echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+        echo TZ=${{ secrets.TZ }} >> .env
+        echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+        echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+        echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
+        echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+
+    - name: Build docker-compose
+      run: docker-compose -f docker-compose.yml up --build -d
+      
+    # - name: Running test inside container docker
+    #   run: docker exec -t boillerplate npm run test
+        
+    - name: coverage
+      uses: codecov/codecov-action@v1
+      with:
+        name: actions ${{ matrix.node }}
+        fail_ci_if_error: false

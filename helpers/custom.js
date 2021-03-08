@@ -8,6 +8,14 @@ const convertDate = (result) => {
   return result
 }
 
+const validateData = (req, res, msg, message, result) => {
+  if (result) {
+    msg.successResponse(res, message, result)
+  } else {
+    msg.notFoundHandler(req, res)
+  }
+}
+
 module.exports = {
-  convertDate
+  convertDate, validateData
 }
