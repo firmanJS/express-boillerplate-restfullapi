@@ -94,18 +94,28 @@ jobs:
     name: coverage
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn add --dev jest         
-    - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: yarn test:cov
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn add --dev jest
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: yarn test:cov
+          debug: true
+    # - uses: actions/checkout@master
+    # - uses: actions/setup-node@master
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    # - run: npm install -g yarn
+    # - run: yarn install
+    # - run: yarn add --dev jest         
+    # - uses: paambaati/codeclimate-action@v2.2.4
+    #   env:
+    #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    #   with:
+    #     coverageCommand: yarn test:cov
         
   # coverage:
   #   needs: [ codecov ]
