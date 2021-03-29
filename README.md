@@ -32,7 +32,7 @@
 - **nyc** - [https://mongoosejs.com/](https://mongoosejs.com/)
 - **password-hash** - [https://mongoosejs.com/](https://mongoosejs.com/) -->
 
-## feature
+## Feature
 
 1. authentication with jwt, login, logout, register, blacklist token, logout jwt
 1. verifiy route with jwt
@@ -48,34 +48,31 @@
 1. eslint airbnb base
 <!-- 1. [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) -->
 
-## unit testing
-<h1 align=center>
- <img src="https://cldup.com/xFVFxOioAU.svg" alt="Mocha test framework"/>
- <img alt="ChaiJS" width="160px" src="http://chaijs.com/img/chai-logo.png">
-</h1>
+## Unit testing
+- **jestjs** - [https://jestjs.io/](https://jestjs.io/)
 
 ## How To run
 
-#### copy environment variable
+### copy environment variable
 
 ```sh
 cp .env-sample .env
 ```
 
-#### run manualy
+### run manualy
 
 ```sh
 # install package
-npm install
+npm install or yarn install
 
 #  running app
-npm run dev
+npm run dev or yarn dev
 
 # running unit tetsing
-npm run test 
+npm run test or yarn test
 ```
 
-#### fill in the copied environment earlier
+### fill in the copied environment earlier
 
 ```sh
 APP_PORT=2000
@@ -91,18 +88,18 @@ MONGO_INITDB_ROOT_PASSWORD= #password
 MONGO_INITDB_DATABASE= #db name
 ```
 
-#### run with docker-compose
+### run with docker-compose
 
 ```sh
 docker-compose up --build
 ```
 
-#### or run with background process
+### or run with background process
 
 ```sh
 docker-compose up --build -d
 ```
-#### execution npm with container docker
+### execution npm with container docker
 ```sh
 # install package
 docker-compose exec boillerplate npm install
@@ -117,15 +114,19 @@ in file `documentation.json` export to your postman
 ## Project Structure
 ```
 .
+├── api/              * all api file here
 ├── config/           * all configuration file here
 |   └── db.js         * configuration database
-├── api/              * all api file here
 ├── helpers/          * all helper or middleware file here
+├── middleware/       * all middleware file here, for check before next to api
 ├── models/           * all models schema file here
 |   └── attributes    * custom your attribute if line is to long
 |   └── function      * custom function mongose schema
 ├── routes/           * all file route here
 |   └── index.js      * register all route
+├── static/           * all configuration swagger
+|   └── path          * custom your path api
+|   └── schema        * custom schema body
 ├── test/             * all test file here
 |   └── index.js      * test apps
 ├── utils/            * all utils file here
