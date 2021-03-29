@@ -25,8 +25,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         # skip because using docker
 #     - run: npm install
-  
-  run-docker-compose:
+    - run: npm install -g yarn
+    - run: yarn install
+    - run: yarn add --dev jest 
+
+  create-env:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -49,9 +52,35 @@ jobs:
           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
           echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
           echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+          echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
 
-      - name: Build docker-compose
-        run: docker-compose -f docker-compose.yml up --build -d
+  # run-docker-compose:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }} && install dependencies
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+
+  #     - name: Create env file
+  #       run: |
+  #         touch .env
+  #         echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+  #         echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
+  #         echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+  #         echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
+  #         echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+  #         echo TZ=${{ secrets.TZ }} >> .env
+  #         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+  #         echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+  #         echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
+  #         echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+  #         echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
+
+  #     - name: Build docker-compose
+  #       run: docker-compose -f docker-compose.yml up --build -d
       
       # - name: publish coverage
       #   uses: paambaati/codeclimate-action@v2.5.7
@@ -62,17 +91,25 @@ jobs:
       #     debug: true
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
-        
-  codecov:
-    needs: run-docker-compose
+
+  coverage:
+    needs: [ create-env ]
+    name: coverage
     runs-on: ubuntu-latest
     steps:
-      - name: coverage
-        uses: codecov/codecov-action@v1
-        with:
-          name: actions ${{ matrix.node }}
-          fail_ci_if_error: false
-
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: sudo npm install -g yarn
+    - run: sudo yarn install
+    - run: sudo yarn add --dev jest         
+    - uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: yarn test:cov
+        
   # coverage:
   #   needs: [ codecov ]
   #   name: coverage

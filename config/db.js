@@ -8,7 +8,6 @@ const nameDB = process.env.MONGO_INITDB_DATABASE
 const sources = process.env.AUTH_SOURCE
 const portDB = process.env.MONGO_PORT
 const dbUrl = `mongodb://${userDB}:${passDB}@${serviceDB}:${portDB}/${nameDB}?authSource=${sources}`
-const log = require('./logger')
 
 mongoose.Promise = global.Promise
 const connectWithRetry = () => mongoose.connect(dbUrl, {
@@ -23,7 +22,8 @@ const connectWithRetry = () => mongoose.connect(dbUrl, {
       // eslint-disable-next-line no-console
       console.error(msg)
     } else {
-      log.info(msg)
+      // eslint-disable-next-line no-console
+      console.info(msg)
     }
     setTimeout(connectWithRetry(), 5000)
   } else {
