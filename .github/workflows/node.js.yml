@@ -97,13 +97,13 @@ jobs:
     name: coverage
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # - run: npm install -g yarn
-    # - run: yarn install
-    # - run: yarn add --dev jest         
+    - run: npm install -g yarn
+    - run: yarn install
+    - run: yarn add --dev jest         
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
