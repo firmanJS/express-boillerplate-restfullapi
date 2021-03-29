@@ -96,9 +96,6 @@ jobs:
     steps:
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.5
-      - run: npm install -g yarn
-      - run: yarn install
-      - run: yarn add --dev jest
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
