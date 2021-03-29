@@ -98,9 +98,9 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn add --dev jest         
+    # - run: npm install -g yarn
+    # - run: yarn install
+    # - run: yarn add --dev jest         
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
