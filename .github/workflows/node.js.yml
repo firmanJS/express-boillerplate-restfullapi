@@ -25,6 +25,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         # skip because using docker
 #     - run: npm install
+    - run: npm install -g yarn
+    - run: yarn install
+    - run: yarn add --dev jest 
 
   create-env:
     needs: build
