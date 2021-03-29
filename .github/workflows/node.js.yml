@@ -76,14 +76,13 @@ jobs:
     - run: npm install -g yarn
     - run: yarn install
     - run: yarn add --dev jest
+    
     - name: Create env file
       run: |
           touch .env
           echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
           
     - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: ${{ CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: yarn test:cov
         
