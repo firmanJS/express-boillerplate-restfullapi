@@ -62,11 +62,11 @@ jobs:
       #     debug: true
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
-        
-  codecov:
-    needs: run-docker-compose
-    runs-on: ubuntu-latest
+
+  coverage:
+    needs: [ run-docker-compose ]
     name: coverage
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@master
@@ -75,12 +75,12 @@ jobs:
     - run: npm install -g yarn
     - run: yarn install
     - run: yarn add --dev jest
-      uses: paambaati/codeclimate-action@v2.2.4
+    - uses: paambaati/codeclimate-action@v2.2.4
       env:
         CC_TEST_REPORTER_ID: ${{ CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: yarn test:cov
-
+        
   # coverage:
   #   needs: [ codecov ]
   #   name: coverage
