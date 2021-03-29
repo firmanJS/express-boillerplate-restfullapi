@@ -49,6 +49,7 @@ jobs:
           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
           echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
           echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+          echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
 
       - name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
