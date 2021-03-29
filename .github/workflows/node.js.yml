@@ -25,8 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         # skip because using docker
 #     - run: npm install
-  
-  run-docker-compose:
+
+  create-env:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -51,8 +51,33 @@ jobs:
           echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
           echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
 
-      - name: Build docker-compose
-        run: docker-compose -f docker-compose.yml up --build -d
+  # run-docker-compose:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }} && install dependencies
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+
+  #     - name: Create env file
+  #       run: |
+  #         touch .env
+  #         echo APP_PORT=${{ secrets.APP_PORT }} >> .env
+  #         echo MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }} >> .env
+  #         echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+  #         echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
+  #         echo MONGO_PORT=${{ secrets.MONGO_PORT }} >> .env
+  #         echo TZ=${{ secrets.TZ }} >> .env
+  #         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+  #         echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+  #         echo MONGO_SERVICE=${{ secrets.MONGO_SERVICE }} >> .env
+  #         echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
+  #         echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
+
+  #     - name: Build docker-compose
+  #       run: docker-compose -f docker-compose.yml up --build -d
       
       # - name: publish coverage
       #   uses: paambaati/codeclimate-action@v2.5.7
@@ -65,7 +90,7 @@ jobs:
     #   run: docker exec -t boillerplate npm run test
 
   coverage:
-    needs: [ run-docker-compose ]
+    needs: [ create-env ]
     name: coverage
     runs-on: ubuntu-latest
     steps:
@@ -75,14 +100,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g yarn
     - run: yarn install
-    - run: yarn add --dev jest
-    
-    - name: Create env file
-      run: |
-          touch .env
-          echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
-          
+    - run: yarn add --dev jest         
     - uses: paambaati/codeclimate-action@v2.2.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: yarn test:cov
         
