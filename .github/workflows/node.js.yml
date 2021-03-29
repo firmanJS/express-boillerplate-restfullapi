@@ -51,6 +51,13 @@ jobs:
           echo AUTH_SOURCE=${{ secrets.AUTH_SOURCE }} >> .env
           echo CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} >> .env
 
+      - uses: paambaati/codeclimate-action@v2.7.5
+      - name: Test & publish code coverage
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: yarn test:cov
+          debug: true
   # run-docker-compose:
   #   needs: build
   #   runs-on: ubuntu-latest
@@ -89,18 +96,18 @@ jobs:
     # - name: Running test inside container docker
     #   run: docker exec -t boillerplate npm run test
 
-  coverage:
-    needs: [ create-env ]
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: paambaati/codeclimate-action@v2.7.5
-      - name: Test & publish code coverage
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: yarn test:cov
-          debug: true
+  # coverage:
+  #   needs: [ create-env ]
+  #   name: coverage
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: paambaati/codeclimate-action@v2.7.5
+  #     - name: Test & publish code coverage
+  #       env:
+  #         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+  #       with:
+  #         coverageCommand: yarn test:cov
+  #         debug: true
     # - uses: actions/checkout@master
     # - uses: actions/setup-node@master
     #   with:
