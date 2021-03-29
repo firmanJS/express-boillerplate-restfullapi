@@ -1,9 +1,6 @@
-const log = require('../config/logger')
-
 const notFoundHandler = (req, res) => {
   const msg = `Route : ${req.url} Not found.`
   const err = new Error(msg)
-  log.info(err.toString())
   res.status(404).json({
     error: err.toString(),
     status: 404,
@@ -13,7 +10,6 @@ const notFoundHandler = (req, res) => {
 
 const errorHandler = (error, res) => {
   if (!error.statusCode) error.statusCode = 500
-  log.error(error.toString())
   res.status(error.statusCode).json({
     error: error.toString(),
     status: error.statusCode,
@@ -43,7 +39,6 @@ const successResponse = (res, msg, data) => res.status(200).json({
 })
 
 const customResponse = (res, code, msg, data) => {
-  log.info(msg)
   res.status(code).json({
     message: msg,
     data
@@ -51,7 +46,6 @@ const customResponse = (res, code, msg, data) => {
 }
 
 const notFoundResponse = (res) => {
-  log.info('Content not found')
   res.status(404).json({
     message: 'Content not found',
     status: 'empty',
@@ -72,7 +66,6 @@ const errorResponse = (res, msg, code) => {
   } else if (msg.errors) {
     message.message = msg.errors
   }
-  log.error(message.message)
   res.status(code).json(message)
 }
 

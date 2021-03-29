@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require('express')
 
 const app = express()
@@ -11,7 +10,6 @@ const { notFoundHandler, errorHandler } = require('./helpers/exceptions')
 const { MORGAN_FORMAT } = require('./helpers/constant')
 const dbConfig = require('./config/db')
 const routing = require('./routes')
-// const logger = require('./config/logger')
 require('dotenv').config()
 
 const morganFormat = MORGAN_FORMAT
@@ -24,7 +22,6 @@ app.use(express.json({ limit: '200kb' }))
 app.use(morgan(morganFormat, { stream: process.stderr }))
 app.use(routing) // routing
 app.use(notFoundHandler) // 404 handler
-app.use(errorHandler) // error handler
-// app.use(logger) // error handler
+app.use(errorHandler) // error handlerr
 
 module.exports = app

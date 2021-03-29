@@ -4,6 +4,6 @@ WORKDIR /usr/apps
 
 COPY package*.json ./
 
-RUN npm install && npm cache clean --force
+RUN yarn install && yarn cache clean --all
 
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]

@@ -68,10 +68,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: coverage
-        uses: codecov/codecov-action@v1
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn add --dev jest
+        uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: ${{ CC_TEST_REPORTER_ID }}
         with:
-          name: actions ${{ matrix.node }}
-          fail_ci_if_error: false
+          coverageCommand: yarn test:cov
 
   # coverage:
   #   needs: [ codecov ]
