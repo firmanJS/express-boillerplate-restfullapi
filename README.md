@@ -1,6 +1,7 @@
 # Express Boillerplate RestfullApi With MongoDB
 [![Maintainability](https://api.codeclimate.com/v1/badges/fa5c8e5f0ea3bdf82fa6/maintainability)](https://codeclimate.com/github/firmanJS/express-boillerplate-restfullapi/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/9ec86010362d54dd1542/test_coverage)](https://codeclimate.com/github/firmanJS/express-boilerplate-restfullapi/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fa5c8e5f0ea3bdf82fa6/test_coverage)](https://codeclimate.com/github/firmanJS/express-boillerplate-restfullapi/test_coverage)
+[![Node.js CI](https://github.com/firmanJS/express-boillerplate-restfullapi/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/firmanJS/express-boillerplate-restfullapi/actions/workflows/node.js.yml)
 [![made-with-nodejs](https://img.shields.io/badge/Made%20with-Nodejs-1f425f.svg)](https://nodejs.org)
 [![made-with-expressjs](https://img.shields.io/badge/Made%20with-Expressjs-1f425f.svg)](https://expressjs.com/)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/firmanJS)
