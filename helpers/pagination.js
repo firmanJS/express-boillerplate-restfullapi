@@ -1,3 +1,4 @@
+const { LIMIT, PAGE, MONGO } = require('./constant')
 /* eslint-disable no-restricted-syntax */
 const jsonParse = (str) => {
   let parsing
@@ -45,10 +46,10 @@ const paging = (req) => {
   } catch (error) {
     return error
   }
-  const sort = (req.query.sort ? jsonParse(req.query.sort) : { _id: -1 })
+  const sort = (req.query.sort ? jsonParse(req.query.sort) : { _id: MONGO.SORT[1] })
   const where = (req.query.where ? jsonParse(req.query.where) : {})
-  const page = req.query.page || 1
-  const limit = req.query.limit || 5
+  const page = Number(req.query.page) || PAGE
+  const limit = Number(req.query.limit) || LIMIT
 
   return {
     search, sort, where, page, limit
