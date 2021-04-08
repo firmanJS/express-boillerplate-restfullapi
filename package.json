@@ -6,6 +6,7 @@
   "scripts": {
     "prod": "pm2 server.js",
     "dev": "nodemon --max-old-space-size=2048 --legacy-watch server.js",
+    "test":"jest -i --colors --verbose --detectOpenHandles",
     "test:mocha": "mocha",
     "test:watch": "jest -i --watchAll",
     "test:coverage": "jest -i --coverage",
