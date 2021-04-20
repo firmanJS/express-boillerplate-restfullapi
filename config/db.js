@@ -10,6 +10,12 @@ const portDB = process.env.MONGO_PORT
 const dbUrl = `mongodb://${userDB}:${passDB}@${serviceDB}:${portDB}/${nameDB}?authSource=${sources}`
 
 mongoose.Promise = global.Promise
+
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`)
+  process.exit(-1)
+})
+
 const connectWithRetry = () => mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,

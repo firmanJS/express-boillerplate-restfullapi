@@ -8,5 +8,6 @@ module.exports = {
   MONGO: {
     SORT: [1, -1] // 1 = ASC -1 = DESC
   },
-  MORGAN_FORMAT: '[:date[clf]] :remote-addr :remote-user :method :url :status :res[content-length] - :response-time ms'
+  MORGAN_FORMAT: '[:date[clf]] :remote-addr :remote-user :method :url :status :response-time ms'
+  // MORGAN_FORMAT: '[:date[clf]] :remote-addr :remote-user :method :url :status :res[content-length] - :response-time ms'
 }
