@@ -1,6 +1,6 @@
 {
   "name": "express-boillerplate-restfullapi",
-  "version": "1.0.0",
+  "version": "1.4",
   "description": "express boilerplate restfullapi with mongodb",
   "main": "server.js",
   "scripts": {

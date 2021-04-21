@@ -63,6 +63,8 @@ cp .env-sample .env
 
 ### run manualy
 
+* via yarn or npm :
+
 ```sh
 # install package
 npm install or yarn install
@@ -72,6 +74,19 @@ npm run dev or yarn dev
 
 # running unit tetsing
 npm run test or yarn test
+```
+
+* via make :
+
+```sh
+# start aplication with docker
+make docker-start 
+
+# stop docker container
+make docker-stop 
+
+# remove docker container
+make docker-down 
 ```
 
 ### fill in the copied environment earlier
