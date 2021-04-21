@@ -11,16 +11,15 @@ const dbUrl = `mongodb://${userDB}:${passDB}@${serviceDB}:${portDB}/${nameDB}?au
 
 mongoose.Promise = global.Promise
 
-mongoose.connection.on('error', (err) => {
-  console.error(`MongoDB connection error: ${err}`)
-  process.exit(-1)
-})
-
 const connectWithRetry = () => mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  keepAlive: true,
+  auto_reconnect: true,
+  poolSize: 10,
+  useCreateIndex: true,
 }, (err) => {
   if (err) {
     const msg = `Failed to connect to mongo on startup - retrying in 5 sec ${err}`
@@ -38,10 +37,18 @@ const connectWithRetry = () => mongoose.connect(dbUrl, {
   }
 })
 
+mongoose.connection.on('disconnected', (err) => {
+  console.info(`Lost MongoDB connection ${err}`)
+})
+
+mongoose.connection.on('reconnected', (err) => {
+  console.info(`Reconnected to MongoDB ${err}`)
+})
+
 if (process.env.NODE_ENV === 'development') {
   mongoose.set('debug', (collectionName, method, query, doc) => {
     // eslint-disable-next-line no-console
-    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+    console.info(`${collectionName}.${method}`, JSON.stringify(query), doc);
   });
 }
 
