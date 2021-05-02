@@ -3,7 +3,7 @@ require('dotenv').config()
 
 app.listen(process.env.APP_PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`express boillerplate app running in port ${process.env.APP_PORT}`)
+  console.info(`express boillerplate app running in port ${process.env.APP_PORT}`)
 })
 
 let server;
@@ -11,7 +11,8 @@ let server;
 const exitHandler = () => {
   if (server) {
     server.close(() => {
-      logger.info('Server closed');
+      // eslint-disable-next-line no-console
+      console.info('Server closed');
       process.exit(1);
     });
   } else {
@@ -20,7 +21,8 @@ const exitHandler = () => {
 };
 
 const unexpectedErrorHandler = (error) => {
-  logger.error(error);
+  // eslint-disable-next-line no-console
+  console.error(error);
   exitHandler();
 };
 
@@ -28,7 +30,8 @@ process.on('uncaughtException', unexpectedErrorHandler);
 process.on('unhandledRejection', unexpectedErrorHandler);
 
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM received');
+  // eslint-disable-next-line no-console
+  console.info('SIGTERM received');
   if (server) {
     server.close();
   }

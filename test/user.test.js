@@ -1,14 +1,23 @@
-const request = require('supertest');
-const app = require('../app');
+/* eslint-disable no-undef */
+require('dotenv').config()
+const request = require('supertest')
 
-// eslint-disable-next-line no-undef
+const urlTest = process.env.URL_TEST
+
 describe('api/v1/user ', () => {
-  // eslint-disable-next-line no-undef
-  it('not found page', (done) => {
-    request(app)
-      .get('/users')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(404, done);
-  });
-});
+  it('not found page', async () => {
+    const result = await request(urlTest).get('/users')
+
+    expect(result.statusCode).toEqual(404)
+  })
+
+  it('invalid login user', async () => {
+    const result = await request(urlTest).post('/user/auth/login').send({
+      username: 'dummyuser',
+      passwod: 'dummyuser',
+    })
+
+    expect(result.statusCode).toEqual(422)
+    expect(result.body).toHaveProperty('message')
+  })
+})

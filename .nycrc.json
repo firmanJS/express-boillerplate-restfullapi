@@ -1,8 +1,6 @@
 {
     "include": [
-        "app/**/*.js",
-        "lib/**/*.js",
-        "server.js"
+        "*/**/*.js"
     ],
     "cache": true,
     "all": true,
@@ -10,7 +8,7 @@
         "html",
         "text-summary"
     ],
-    "excludeNodeModules": false,
+    "excludeNodeModules": true,
     "lines": 255,
     "statements": 100,
     "functions": 100,
