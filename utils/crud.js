@@ -1,6 +1,6 @@
 const msg = require('../helpers/exceptions')
 const { paging } = require('../helpers/pagination')
-const { resultValidation } = require('../helpers/validation')
+const { resultValidation, countValidation } = require('../helpers/validation')
 const { validateData } = require('../helpers/custom')
 
 const searchCondition = (req, search) => {
@@ -17,7 +17,7 @@ const searchCondition = (req, search) => {
 
 const pages = async (req, res, schema, search, select = [], indexing = {}) => {
   const paginations = paging(req)
-  const searching = searchCondition(req, search)
+  const searching = searchCondition(req, search) || [{}]
   try {
     const result = await schema.find(paginations.where)
       .select(select).or(searching)
@@ -26,7 +26,8 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
       .skip((paginations.limit * paginations.page) - paginations.limit)
       .lean()
       .hint(indexing)
-    const count = await schema.estimatedDocumentCount()
+    const filterCount = { ...paginations.where, ...{ $or: [searching] } }
+    const count = await schema.countDocuments(filterCount)
     const countPerPage = Math.ceil(count / paginations.limit)
     const dataMapping = {
       result,
@@ -35,7 +36,7 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
       count,
       limit: paginations.limit
     }
-    msg.getResponse(req, res, dataMapping)
+    countValidation(req, res, dataMapping, msg)
   } catch (error) {
     msg.errorResponse(res, error, 500)
   }
