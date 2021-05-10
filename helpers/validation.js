@@ -8,6 +8,14 @@ const resultValidation = (request) => {
   return 0
 }
 
+const countValidation = (req, res, data, msg) => {
+  if (data.count > 0) {
+    return msg.getResponse(req, res, data)
+  }
+
+  return msg.notFoundResponse(res)
+}
+
 module.exports = {
-  resultValidation
+  resultValidation, countValidation
 }

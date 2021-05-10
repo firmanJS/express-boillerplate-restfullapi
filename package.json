@@ -6,10 +6,10 @@
   "scripts": {
     "prod": "pm2 server.js",
     "dev": "nodemon --max-old-space-size=2048 --legacy-watch server.js",
-    "test":"jest -i --colors --verbose --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest -i --colors --verbose --detectOpenHandles --no-cache",
     "test:mocha": "mocha",
     "test:watch": "jest -i --watchAll",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --detectOpenHandles",
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint --fix --ext .js",
     "test:load": "npx autocannon -c 100 -d 5 -p 10 localhost:4000/v1/users",

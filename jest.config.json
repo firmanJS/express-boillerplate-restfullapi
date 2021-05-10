@@ -1,0 +1,12 @@
+{
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "*/**/**.js"
+    ],
+    "coveragePathIgnorePatterns": [
+        "node_modules",
+        "logs",
+        "coverage"
+    ]
+}

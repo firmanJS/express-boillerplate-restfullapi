@@ -33,7 +33,7 @@ const connectWithRetry = () => mongoose.connect(dbUrl, {
     setTimeout(connectWithRetry(), 5000)
   } else {
     // eslint-disable-next-line no-console
-    console.log('mongoDB Connected ✅')
+    console.info('mongoDB Connected ✅')
   }
 })
 
