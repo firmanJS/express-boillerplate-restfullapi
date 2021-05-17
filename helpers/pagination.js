@@ -48,8 +48,8 @@ const paging = (req) => {
   }
   const sort = (req.query.sort ? jsonParse(req.query.sort) : { _id: MONGO.SORT[1] })
   const where = (req.query.where ? jsonParse(req.query.where) : {})
-  const page = Number(req.query.page) || PAGE
-  const limit = Number(req.query.limit) || LIMIT
+  const page = +req.query.page || PAGE
+  const limit = +req.query.limit || LIMIT
 
   return {
     search, sort, where, page, limit
