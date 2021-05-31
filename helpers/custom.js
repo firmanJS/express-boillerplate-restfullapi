@@ -1,9 +1,8 @@
-const { now } = require('moment')
 const moment = require('moment')
 
 const convertDate = (result) => {
   const createdAt = result?.createdAt || Date.now()
-  const updatedAt = result?.updatedAt || Date.now() //optional chaining
+  const updatedAt = result?.updatedAt || Date.now() // optional chaining
   result.createdAt = moment(new Date(createdAt)
     .getTime()).format('DD-MM-YYYY h:mm:ss')
   result.updatedAt = moment(new Date(updatedAt)

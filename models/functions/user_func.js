@@ -1,4 +1,4 @@
-module.exports.list = async (this_) => ({
+module.exports.list = (this_) => ({
   id: this_._id,
   fullname: this_.fullname,
   username: this_.username,
