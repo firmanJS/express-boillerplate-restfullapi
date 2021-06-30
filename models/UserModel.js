@@ -16,4 +16,13 @@ const UserSchema = new Schema({
 UserSchema.methods.userList = () => {
   remap.list(this)
 }
+
+UserSchema.post(['save', 'findOneAndUpdate'], (error, doc, next) => {
+  if (error.name === 'MongoError' && error.code === 11000) {
+    next(new Error(`${JSON.stringify(error.keyValue)} must be unique`))
+  } else {
+    next(error)
+  }
+})
+
 module.exports = mongoose.model('User', UserSchema)

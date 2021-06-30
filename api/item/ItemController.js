@@ -1,5 +1,5 @@
 const Items = require('../../models/ItemModel')
-const { SEARCH } = require('../../helpers/constant')
+const { SEARCH } = require('../../utils')
 const {
   pages, save, read, updated, deletes
 } = require('../../utils/crud')

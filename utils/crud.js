@@ -1,7 +1,6 @@
-const msg = require('../helpers/exceptions')
-const { paging } = require('../helpers/pagination')
-const { resultValidation, countValidation } = require('../helpers/validation')
-const { validateData } = require('../helpers/custom')
+const {
+  errorResponse, successResponse, paging, validateData, resultValidation, countValidation
+} = require('./index')
 
 const searchCondition = (req, search) => {
   const paginations = paging(req)
@@ -38,7 +37,7 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
     }
     countValidation(req, res, dataMapping, msg)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    errorResponse(res, error, 500)
   }
 }
 
@@ -46,13 +45,13 @@ const save = async (req, res, schema) => {
   try {
     const { body } = req
     const storeData = await schema.create(body)
-    msg.successResponse(res, 'Create', storeData)
+    successResponse(res, 'Create', storeData)
   } catch (error) {
     const cek = resultValidation(req)
     if (cek) {
-      msg.errorResponse(res, cek, 500)
+      errorResponse(res, cek, 500)
     } else {
-      msg.errorResponse(res, error, 500)
+      errorResponse(res, error, 500)
     }
   }
 }
@@ -63,7 +62,7 @@ const read = async (req, res, schema) => {
     const showData = await schema.findById(id).lean()
     validateData(req, res, msg, 'Get', showData)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    errorResponse(res, error, 500)
   }
 }
 
@@ -75,7 +74,7 @@ const updated = async (req, res, schema, options) => {
       .findByIdAndUpdate(id, { $set: body }, options)
     validateData(req, res, msg, 'Update', updateData)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    errorResponse(res, error, 500)
   }
 }
 
@@ -84,16 +83,16 @@ const deletes = async (req, res, schema, id) => {
     const destroyItem = await schema.findByIdAndRemove(id)
     validateData(req, res, msg, 'Delete', destroyItem)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    errorResponse(res, error, 500)
   }
 }
 
 const cleanAll = async (res, schema) => {
   try {
     const cleaning = await schema.deleteMany({})
-    msg.successResponse(res, 'Delete All', cleaning)
+    successResponse(res, 'Delete All', cleaning)
   } catch (error) {
-    msg.errorResponse(res, error, 500)
+    errorResponse(res, error, 500)
   }
 }
 

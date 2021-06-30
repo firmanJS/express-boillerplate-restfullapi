@@ -1,7 +1,7 @@
 const { convertDate } = require('./custom')
 
 /* eslint-disable no-undef */
-describe('helpers custom testing ', () => {
+describe('all utils custom testing ', () => {
   it('convertdate', () => {
     const getDate = convertDate({})
     expect(convertDate({})).toHaveProperty('createdAt', getDate.createdAt)

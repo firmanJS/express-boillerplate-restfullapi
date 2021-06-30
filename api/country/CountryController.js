@@ -1,5 +1,5 @@
 const Country = require('../../models/CountryModel')
-const { SEARCH } = require('../../helpers/constant')
+const { SEARCH } = require('../../utils')
 const {
   pages, save, read, updated, deletes, cleanAll
 } = require('../../utils/crud')
