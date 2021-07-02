@@ -35,7 +35,7 @@ const pages = async (req, res, schema, search, select = [], indexing = {}) => {
       count,
       limit: paginations.limit
     }
-    countValidation(req, res, dataMapping, msg)
+    countValidation(req, res, dataMapping)
   } catch (error) {
     errorResponse(res, error, 500)
   }
@@ -56,23 +56,42 @@ const save = async (req, res, schema) => {
   }
 }
 
-const read = async (req, res, schema) => {
+const readById = async (req, res, schema) => {
   try {
     const { id } = req.params
     const showData = await schema.findById(id).lean()
-    validateData(req, res, msg, 'Get', showData)
+    validateData(req, res, 'Get', showData)
   } catch (error) {
     errorResponse(res, error, 500)
   }
 }
 
-const updated = async (req, res, schema, options) => {
+const read = async (req, res, schema, where) => {
+  try {
+    const showData = await schema.find(where).lean()
+    validateData(req, res, 'Get', showData)
+  } catch (error) {
+    errorResponse(res, error, 500)
+  }
+}
+
+const updateById = async (req, res, schema, options) => {
   const { body } = req
   const { id } = req.params
   try {
-    const updateData = await schema
+    const updateByIdata = await schema
       .findByIdAndUpdate(id, { $set: body }, options)
-    validateData(req, res, msg, 'Update', updateData)
+    validateData(req, res, 'Update', updateByIdata)
+  } catch (error) {
+    errorResponse(res, error, 500)
+  }
+}
+
+const update = async (req, res, where, schema, options) => {
+  const { body } = req
+  try {
+    const updateByIdata = await schema.update(where, { $set: body }, options)
+    validateData(req, res, 'Update', updateByIdata)
   } catch (error) {
     errorResponse(res, error, 500)
   }
@@ -81,7 +100,7 @@ const updated = async (req, res, schema, options) => {
 const deletes = async (req, res, schema, id) => {
   try {
     const destroyItem = await schema.findByIdAndRemove(id)
-    validateData(req, res, msg, 'Delete', destroyItem)
+    validateData(req, res, 'Delete', destroyItem)
   } catch (error) {
     errorResponse(res, error, 500)
   }
@@ -97,5 +116,5 @@ const cleanAll = async (res, schema) => {
 }
 
 module.exports = {
-  pages, save, read, updated, deletes, cleanAll
+  pages, save, read, updateById, deletes, cleanAll, update, readById
 }

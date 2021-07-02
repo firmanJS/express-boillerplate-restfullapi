@@ -19,7 +19,9 @@ app.use(methodOverride()) // lets you use HTTP verbs
 app.use(helmet()) // secure apps by setting various HTTP headers
 app.use(cors()) // enable cors
 app.options('*', cors()) // cors setup
-dbConfig.connectWithRetry() // connect to mongodb
+if (process.env.NODE_ENV !== 'test') {
+  dbConfig.connectWithRetry() // connect to mongodb
+}
 app.use(express.json({ limit: '200kb' }))
 // disabled this using custom morgan for produciton and development
 // if (process.env.NODE_ENV === 'production'){

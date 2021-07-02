@@ -3,10 +3,10 @@ const { successResponse, notFoundHandler } = require('./index')
 
 const convertDate = (result) => {
   const createdAt = result?.createdAt || Date.now()
-  const updatedAt = result?.updatedAt || Date.now() // optional chaining
+  const updateByIdAt = result?.updateByIdAt || Date.now() // optional chaining
   result.createdAt = moment(new Date(createdAt)
     .getTime()).format('DD-MM-YYYY h:mm:ss')
-  result.updatedAt = moment(new Date(updatedAt)
+  result.updateByIdAt = moment(new Date(updateByIdAt)
     .getTime()).format('DD-MM-YYYY h:mm:ss')
   return result
 }
