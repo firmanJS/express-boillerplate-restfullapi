@@ -1,7 +1,8 @@
+const options = { new: true }
 const Customer = require('../../models/CustomerModel')
 const {
-  pages, save, readById, updateById, deletes
-} = require('../../utils/crud')
+  pages, save, readById, updated, deletes, objId, MONGO
+} = require('../../utils')
 
 const searching = (req) => {
   let namaKantor = { kantor: {} }
@@ -33,7 +34,7 @@ const searching = (req) => {
 const index = (req, res) => pages(req, res, Customer, searching(req))
 const store = (req, res) => save(req, res, Customer)
 const show = (req, res) => readById(req, res, Customer)
-const update = (req, res) => updateById(req, res, Customer, { new: true })
+const update = (req, res) => updated(req, res, Customer, MONGO.UPDATE_BY_ID, objId(req), options)
 const destroy = (req, res) => deletes(req, res, Customer, req.params.id)
 
 module.exports = {

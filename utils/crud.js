@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const {
   errorResponse, successResponse, paging, validateData, resultValidation, countValidation
 } = require('./index')
@@ -75,23 +76,11 @@ const read = async (req, res, schema, where) => {
   }
 }
 
-const updateById = async (req, res, schema, options) => {
-  const { body } = req
-  const { id } = req.params
-  try {
-    const updateByIdata = await schema
-      .findByIdAndUpdate(id, { $set: body }, options)
-    validateData(req, res, 'Update', updateByIdata)
-  } catch (error) {
-    errorResponse(res, error, 500)
-  }
-}
-
-const update = async (req, res, where, schema, options) => {
+const updated = async (req, res, schema, method, where, options) => {
   const { body } = req
   try {
-    const updateByIdata = await schema.update(where, { $set: body }, options)
-    validateData(req, res, 'Update', updateByIdata)
+    const updatedData = await schema[method](where, { $set: body }, options)
+    validateData(req, res, 'Update', updatedData)
   } catch (error) {
     errorResponse(res, error, 500)
   }
@@ -115,6 +104,8 @@ const cleanAll = async (res, schema) => {
   }
 }
 
+const objId = (req) => ({ _id: mongoose.ObjectId(req.params.id) })
+
 module.exports = {
-  pages, save, read, updateById, deletes, cleanAll, update, readById
+  pages, save, read, deletes, cleanAll, updated, readById, objId
 }

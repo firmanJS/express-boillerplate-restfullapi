@@ -5,6 +5,6 @@ describe('all utils custom testing ', () => {
   it('convertdate', () => {
     const getDate = convertDate({})
     expect(convertDate({})).toHaveProperty('createdAt', getDate.createdAt)
-    expect(convertDate({})).toHaveProperty('updateByIdAt', getDate.updateByIdAt)
+    expect(convertDate({})).toHaveProperty('updatedAt', getDate.updatedAt)
   })
 })

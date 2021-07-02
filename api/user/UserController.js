@@ -2,7 +2,7 @@ const Users = require('../../models/UserModel')
 const {
   paging, getResponse, errorResponse, successResponse
 } = require('../../utils')
-const { deletes } = require('../../utils/crud')
+const { deletes } = require('../../utils')
 
 const index = async (req, res) => {
   const paginate = paging(req)
